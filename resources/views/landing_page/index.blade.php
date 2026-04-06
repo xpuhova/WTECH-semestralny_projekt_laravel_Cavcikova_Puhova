@@ -47,9 +47,15 @@
                     <a href="#" class="nav-icon fs-5" aria-label="Search">
                         <i class="ph ph-magnifying-glass"></i>
                     </a>
-                    <a href="../register_and_login_pages/register_page.html" class="nav-icon fs-5" aria-label="User account">
-                        <i class="ph ph-user"></i>
-                    </a>
+                    @auth
+                        <a href="{{ route('profile') }}" class="nav-icon fs-5" aria-label="User account">
+                            <i class="ph ph-user"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-icon fs-5" aria-label="User account">
+                            <i class="ph ph-user"></i>
+                        </a>
+                    @endauth
                     <a href="../shopping_cart_and_order_pages/shopping_cart.html" class="nav-icon fs-5" aria-label="Shopping bag">
                         <i class="ph ph-handbag"></i>
                     </a>

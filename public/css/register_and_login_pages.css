@@ -1,0 +1,103 @@
+.register-visual {
+    position: relative;
+    height: 850px;
+    overflow: hidden;
+}
+
+.register-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.login-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+}
+
+.login-visual-overlay{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    width: 320px;
+}
+
+.register-visual-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 50%;
+}
+
+.register-visual-title {
+    font-family: "Manrope", sans-serif;
+    font-size: 56px;
+    font-weight: 600;
+}
+
+.register-visual-text {
+    font-size: 18px;
+}
+
+.register-subtitle {
+    font-size: 16px;
+    color: gray;
+}
+
+.register-link {
+    color: black;
+    text-decoration: underline;
+}
+
+.register-input {
+    height: 56px;
+    border: 1px solid #BBBBBB;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.register-input::placeholder {
+    color: #BBBBBB;
+}
+
+@media (max-width: 992px) {
+    .register-visual {
+        height: 520px;
+    }
+}
+
+@media (max-width: 768px) {
+    .register-visual {
+        height: 460px;
+    }
+
+    .register-visual-title {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 576px) {
+    .register-visual {
+        height: 360px;
+    }
+
+    .register-visual-title {
+        font-size: 30px;
+    }
+
+    .register-visual-text {
+        font-size: 15px;
+    }
+
+    .register-input {
+        height: 48px;
+    }
+}
