@@ -1,59 +1,140 @@
-<x-layouts::auth :title="__('Log in')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRÏP</title>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/register_and_login_pages.css') }}">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container-fluid px-4 px-xl-5">
+            <a class="navbar-brand logo" href="{{ route('home') }}">GRÏP</a>
 
-        <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
-            @csrf
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Email address')"
-                :value="old('email')"
-                type="email"
-                required
-                autofocus
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-uppercase fw-semibold gap-lg-5">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../product_pages/mens_page.html">Men</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../product_pages/womens_page.html">Women</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../product_pages/kids_page.html">Kids</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../product_pages/equipment_page.html">Equipment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../product_pages/sale_page.html">Sale</a>
+                    </li>
+                </ul>
 
-            <!-- Password -->
-            <div class="relative">
-                <flux:input
-                    name="password"
-                    :label="__('Password')"
-                    type="password"
-                    required
-                    autocomplete="current-password"
-                    :placeholder="__('Password')"
-                    viewable
-                />
-
-                @if (Route::has('password.request'))
-                    <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
-                        {{ __('Forgot your password?') }}
-                    </flux:link>
-                @endif
+                <div class="d-flex align-items-center gap-4">
+                    <a href="#" class="nav-icon fs-5" aria-label="Search">
+                        <i class="ph ph-magnifying-glass"></i>
+                    </a>
+                    @auth
+                        <a href="{{ route('profile') }}" class="nav-icon fs-5" aria-label="User account">
+                            <i class="ph ph-user"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-icon fs-5" aria-label="User account">
+                            <i class="ph ph-user"></i>
+                        </a>
+                    @endauth
+                    <a href="../shopping_cart_and_order_pages/shopping_cart.html" class="nav-icon fs-5" aria-label="Shopping bag">
+                        <i class="ph ph-handbag"></i>
+                    </a>
+                </div>
             </div>
+        </div>
+    </nav>
+</header>
 
-            <!-- Remember Me -->
-            <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" />
+<main>
+    <section class="register-page py-5">
+        <div class="container-fluid px-4 px-xl-5">
+            <div class="row g-4 align-items-start">
+                <div class="col-12 col-lg-6">
+                    <div class="register-visual">
+                        <img src="{{ asset('images/login.jpeg') }}" alt="Climbing lifestyle visual" class="login-img">
+                        <div class="login-visual-overlay text-white">
+                            <h2 class="register-visual-title mb-3">WELCOME BACK</h2>
+                            <p class="register-visual-text mb-0">Grow with confidence</p>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                    {{ __('Log in') }}
-                </flux:button>
+                <div class="col-12 col-lg-6">
+                    <div class="register-form-area">
+                        <h1 class="display-title mb-2">Log in</h1>
+                        <p class="register-subtitle mb-4">
+                            Don't have an account?
+                            <a href="{{ route('register') }}" class="register-link">Register.</a>
+                        </p>
+
+                        <form method="POST" action="{{ route('login.store') }}">
+                            @csrf
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label for="email" class="visually-hidden">First Name</label>
+                                    <input type="email" name="email" id="email" class="form-control register-input" placeholder="Email" value="{{ old('email') }}" required>
+                                    @error('email')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="password" class="visually-hidden">Last Name</label>
+                                    <input type="password" name="password" id="password" class="form-control register-input" placeholder="Password" required>
+                                    @error('password')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12 pt-2">
+                                    <div class="text-center text-lg-start">
+                                        <button type="submit" class="btn checkout-pill">Log in</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
+    </section>
+</main>
 
-        @if (Route::has('register'))
-            <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
-                <span>{{ __('Don\'t have an account?') }}</span>
-                <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
+<footer class="site-footer mt-5 py-4">
+    <div class="container-fluid px-4 px-xl-5">
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+            <p class="footer-copy mb-0">© 2026 GRÏP ALL RIGHTS RESERVED</p>
+
+            <div class="footer-links d-flex flex-wrap justify-content-center gap-4">
+                <a class="footer-link" href="#">Contact</a>
+                <a class="footer-link" href="#">Terms of Service</a>
+                <a class="footer-link" href="#">Delivery</a>
+                <a class="footer-link" href="#">Payment</a>
+                <a class="footer-link" href="#">Return Policy</a>
             </div>
-        @endif
+        </div>
     </div>
-</x-layouts::auth>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+</body>
+</html>

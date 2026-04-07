@@ -83,7 +83,7 @@
                         <h1 class="display-title mb-2">Register</h1>
                         <p class="register-subtitle mb-4">
                             Already have an account?
-                            <a href="../register_and_login_pages/login_page.html" class="register-link">Log in.</a>
+                            <a href="{{ route('login') }}" class="register-link">Log in.</a>
                         </p>
 
                         <form method="POST" action="{{ route('register.store') }}">

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return view('landing_page.index');
@@ -16,3 +17,9 @@ Route::get('/profile', function () {
 })->middleware('auth')->name('profile');
 
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+Route::get('/login', function () {
+    return view('pages.auth.login');
+})->name('login');
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
