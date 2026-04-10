@@ -1,0 +1,170 @@
+.category-hero-subtitle {
+    font-family: "Manrope", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.category-hero {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 400px;
+}
+
+.category-hero-men {
+    background-image: url("../images/men_hero.jpeg");
+    background-position: center;
+}
+
+.category-hero-women {
+    background-image: url("../images/women_hero.jpg");
+    background-position: center;
+}
+
+.category-hero-kids {
+    background-image: url("../images/kids.webp");
+    background-position: left top;
+}
+
+.category-hero-sale {
+    background-image: url("../images/sale_hero.jpg");
+    background-position: center;
+}
+
+.category-hero-equipment {
+    background-image: url("../images/equipment_hero.webp");
+    background-position: center;
+}
+
+.catalog-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    height: 52px;
+    padding: 0 24px;
+    border: 1px solid black;
+    border-radius: 12px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+}
+
+.catalog-pill:hover {
+    color: black;
+    border-color: #BBBBBB;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.catalog-divider {
+    border: 0;
+    border-top: 1px solid black;
+    opacity: 1;
+}
+
+.sort-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.sort-button:hover {
+    color: #BBBBBB;
+}
+
+.card-img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+}
+
+.pagination {
+    gap: 10px;
+}
+
+.page-item .page-link {
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+    background-color: white;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 16px;
+    min-width: 44px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+}
+
+.page-item .page-link:hover {
+    color: black;
+    background-color: white;
+    border-color: #BBBBBB;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+}
+
+.page-item.disabled .page-link {
+    color: #BBBBBB;
+    background-color: #f5f5f5;
+    border-color: #BBBBBB;
+    box-shadow: none;
+}
+
+@media (max-width: 992px) {
+    .category-hero-subtitle {
+        font-size: 20px;
+    }
+
+    .card-img {
+        height: 230px;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-hero-subtitle {
+        font-size: 18px;
+    }
+
+    .category-hero {
+        min-height: 320px;
+    }
+
+    .card-img {
+        height: 210px;
+    }
+}
+
+@media (max-width: 576px) {
+    .category-hero-subtitle {
+        font-size: 16px;
+    }
+
+    .category-hero {
+        min-height: 280px;
+    }
+
+    .card-img {
+        height: 190px;
+    }
+}

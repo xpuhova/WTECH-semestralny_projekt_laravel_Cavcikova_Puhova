@@ -30,7 +30,7 @@
                         <a class="nav-link" href="../product_pages/mens_page.html">Men</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/womens_page.html">Women</a>
+                        <a class="nav-link" href="{{ route('women') }}">Women</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../product_pages/kids_page.html">Kids</a>
@@ -84,7 +84,7 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                     <a href="../product_pages/product_detail_page.html" class="product-card-link">
                         <article class="card h-100 border-0 bg-transparent">
-                            <img src="{{ asset('images/lasportiva_muira_vs.jpg') }}" class="card-img-new-in" alt="La Sportiva Miura VS climbing shoes">
+                            <img src="{{ asset('images/lasportiva_miura_vs.jpg') }}" class="card-img-new-in" alt="La Sportiva Miura VS climbing shoes">
                             <div class="card-body text-center">
                                 <h3 class="h6 mb-2">La Sportiva Miura VS</h3>
                                 <p class="mb-1 text-muted">Aggressive, high-performance sport and multipitch climbing shoe</p>
