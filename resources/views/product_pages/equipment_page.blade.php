@@ -66,11 +66,11 @@
 </header>
 
 <main>
-    <section class="category-hero category-hero-kids d-flex align-items-center">
+    <section class="category-hero category-hero-equipment d-flex align-items-center">
         <div class="container text-center">
-            <h1 class="display-title text-white mb-3">KIDS</h1>
+            <h1 class="display-title text-white mb-3">EQUIPMENT</h1>
             <p class="category-hero-subtitle mb-0">
-                Reliable footwear and apparel made for big adventures and growth
+                Climbing equipment and essentials built for durability and control
             </p>
         </div>
     </section>
@@ -78,16 +78,17 @@
     <section class="catalog-controls py-5">
         <div class="container-fluid px-4 px-xl-5">
             <div class="category-shortcuts d-flex flex-wrap gap-3 mb-4">
-                <a href="{{ route('kids') }}" class="catalog-pill">All</a>
-                <a href="{{ route('kids', ['category' => 'Shoes']) }}" class="catalog-pill">Shoes</a>
-                <a href="{{ route('kids', ['category' => 'Clothing']) }}" class="catalog-pill">Clothing</a>
-                <a href="{{ route('kids', ['category' => 'Equipment']) }}" class="catalog-pill">Equipment</a>
-                <a href="{{ route('kids', ['sale' => 1]) }}" class="catalog-pill">Sale</a>
+                <a href="{{ route('equipment') }}" class="catalog-pill">All</a>
+                <a href="{{ route('equipment', ['category' => 'Chalk Bags']) }}" class="catalog-pill">Chalk Bags</a>
+                <a href="{{ route('equipment', ['category' => 'Helmets']) }}" class="catalog-pill">Helmets</a>
+                <a href="{{ route('equipment', ['category' => 'Harnesses']) }}" class="catalog-pill">Harnesses</a>
+                <a href="{{ route('equipment', ['category' => 'Ropes']) }}" class="catalog-pill">Ropes</a>
+                <a href="{{ route('equipment', ['sale' => 1]) }}" class="catalog-pill">Sale</a>
             </div>
 
             <hr class="catalog-divider my-4">
 
-            <form method="GET" action="{{ route('kids') }}">
+            <form method="GET" action="{{ route('equipment') }}">
                 @if(request()->filled('category'))
                     <input type="hidden" name="category" value="{{ request('category') }}">
                 @endif
@@ -139,67 +140,20 @@
                                 Size
                             </button>
                             <ul class="dropdown-menu px-3" aria-labelledby="size">
-                                @if(request('category') === 'Shoes')
-                                    @foreach($shoeSizeTags as $sizeTag)
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="size[]"
-                                                    value="{{ $sizeTag->name }}"
-                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
-                                                    onchange="this.form.submit()"
-                                                >
-                                                {{ $sizeTag->name }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-                                @elseif(request('category') === 'Clothing' || request('category') === 'Equipment')
-                                    @foreach($clothingSizeTags as $sizeTag)
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="size[]"
-                                                    value="{{ $sizeTag->name }}"
-                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
-                                                    onchange="this.form.submit()"
-                                                >
-                                                {{ $sizeTag->name }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-                                @else
-                                    @foreach($clothingSizeTags as $sizeTag)
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="size[]"
-                                                    value="{{ $sizeTag->name }}"
-                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
-                                                    onchange="this.form.submit()"
-                                                >
-                                                {{ $sizeTag->name }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-
-                                    @foreach($shoeSizeTags as $sizeTag)
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="size[]"
-                                                    value="{{ $sizeTag->name }}"
-                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
-                                                    onchange="this.form.submit()"
-                                                >
-                                                {{ $sizeTag->name }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-                                @endif
+                                @foreach($clothingSizeTags as $sizeTag)
+                                    <li>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="size[]"
+                                                value="{{ $sizeTag->name }}"
+                                                {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                onchange="this.form.submit()"
+                                            >
+                                            {{ $sizeTag->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
 
@@ -225,7 +179,7 @@
                             </ul>
                         </div>
                         <a
-                            href="{{ route('kids', array_filter([
+                            href="{{ route('equipment', array_filter([
                                 'category' => request('category'),
                                 'sale' => request('sale'),
                             ])) }}"

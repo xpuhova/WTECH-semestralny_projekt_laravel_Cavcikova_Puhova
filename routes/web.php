@@ -23,6 +23,10 @@ Route::get('/men', [ProductController::class, 'men'])->name('men');
 
 Route::get('/kids', [ProductController::class, 'kids'])->name('kids');
 
+Route::get('/sale', [ProductController::class, 'sale'])->name('sale');
+
+Route::get('/equipment', [ProductController::class, 'equipment'])->name('equipment');
+
 
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
