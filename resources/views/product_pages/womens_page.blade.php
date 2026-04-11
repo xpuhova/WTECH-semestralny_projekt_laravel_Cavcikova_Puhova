@@ -33,7 +33,7 @@
                         <a class="nav-link" href="{{ route('women') }}">Women</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/kids_page.html">Kids</a>
+                        <a class="nav-link" href="{{ route('kids') }}">Kids</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../product_pages/equipment_page.html">Equipment</a>

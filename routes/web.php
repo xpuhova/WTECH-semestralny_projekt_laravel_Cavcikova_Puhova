@@ -21,6 +21,9 @@ Route::get('/women', [ProductController::class, 'women'])->name('women');
 
 Route::get('/men', [ProductController::class, 'men'])->name('men');
 
+Route::get('/kids', [ProductController::class, 'kids'])->name('kids');
+
+
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 Route::get('/login', function () {
