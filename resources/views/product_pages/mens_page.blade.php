@@ -66,11 +66,11 @@
 </header>
 
 <main>
-    <section class="category-hero category-hero-women d-flex align-items-center">
+    <section class="category-hero category-hero-men d-flex align-items-center">
         <div class="container text-center">
-            <h1 class="display-title text-white mb-3">WOMEN</h1>
+            <h1 class="display-title text-white mb-3">MEN</h1>
             <p class="category-hero-subtitle mb-0">
-                Climbing shoes and accessories designed for comfort, control, and power.
+                Performance footwear and climbing essentials built for precision and support
             </p>
         </div>
     </section>
@@ -78,16 +78,16 @@
     <section class="catalog-controls py-5">
         <div class="container-fluid px-4 px-xl-5">
             <div class="category-shortcuts d-flex flex-wrap gap-3 mb-4">
-                <a href="{{ route('women') }}" class="catalog-pill">All</a>
-                <a href="{{ route('women', ['category' => 'Shoes']) }}" class="catalog-pill">Shoes</a>
-                <a href="{{ route('women', ['category' => 'Clothing']) }}" class="catalog-pill">Clothing</a>
-                <a href="{{ route('women', ['category' => 'Equipment']) }}" class="catalog-pill">Equipment</a>
-                <a href="{{ route('women', ['sale' => 1]) }}" class="catalog-pill">Sale</a>
+                <a href="{{ route('men') }}" class="catalog-pill">All</a>
+                <a href="{{ route('men', ['category' => 'Shoes']) }}" class="catalog-pill">Shoes</a>
+                <a href="{{ route('men', ['category' => 'Clothing']) }}" class="catalog-pill">Clothing</a>
+                <a href="{{ route('men', ['category' => 'Equipment']) }}" class="catalog-pill">Equipment</a>
+                <a href="{{ route('men', ['sale' => 1]) }}" class="catalog-pill">Sale</a>
             </div>
 
             <hr class="catalog-divider my-4">
 
-            <form method="GET" action="{{ route('women') }}">
+            <form method="GET" action="{{ route('men') }}">
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
                     <div class="filter-buttons d-flex flex-wrap gap-3">
                         <div class="dropdown">
@@ -216,7 +216,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <a href="{{ route('women') }}" class="catalog-pill btn" style="background-color: #e0e0e0; color: black;">Clear Filters</a>
+                        <a href="{{ route('men') }}" class="catalog-pill btn" style="background-color: #e0e0e0; color: black;">Clear Filters</a>
                     </div>
 
 
