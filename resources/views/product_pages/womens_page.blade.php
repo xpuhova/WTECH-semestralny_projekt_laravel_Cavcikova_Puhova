@@ -30,7 +30,7 @@
                         <a class="nav-link" href="../product_pages/mens_page.html">Men</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/womens_page.html">Women</a>
+                        <a class="nav-link" href="{{ route('women') }}">Women</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../product_pages/kids_page.html">Kids</a>
@@ -78,102 +78,160 @@
     <section class="catalog-controls py-5">
         <div class="container-fluid px-4 px-xl-5">
             <div class="category-shortcuts d-flex flex-wrap gap-3 mb-4">
-                <a href="#" class="catalog-pill">Shoes</a>
-                <a href="#" class="catalog-pill">Clothing</a>
-                <a href="#" class="catalog-pill">Equipment</a>
-                <a href="#" class="catalog-pill">Sale</a>
+                <a href="{{ route('women') }}" class="catalog-pill">All</a>
+                <a href="{{ route('women', ['category' => 'Shoes']) }}" class="catalog-pill">Shoes</a>
+                <a href="{{ route('women', ['category' => 'Clothing']) }}" class="catalog-pill">Clothing</a>
+                <a href="{{ route('women', ['category' => 'Equipment']) }}" class="catalog-pill">Equipment</a>
+                <a href="{{ route('women', ['sale' => 1]) }}" class="catalog-pill">Sale</a>
             </div>
 
             <hr class="catalog-divider my-4">
 
-            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
-                <div class="filter-buttons d-flex flex-wrap gap-3">
-                    <div class="dropdown">
-                        <button class="catalog-pill dropdown-toggle btn" type="button" id="price" data-bs-toggle="dropdown">
-                            Price
-                        </button>
-                        <ul class="dropdown-menu px-3 py-2" aria-labelledby="price">
-                            <li class="d-flex flex-column gap-2">
-                                <label><input type="number" class="form-control" placeholder="Min"></label>
-                                <label><input type="number" class="form-control" placeholder="Max"></label>
-                            </li>
-                        </ul>
+            <form method="GET" action="{{ route('women') }}">
+                <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+                    <div class="filter-buttons d-flex flex-wrap gap-3">
+                        <div class="dropdown">
+                            <button class="catalog-pill dropdown-toggle btn" type="button" id="price" data-bs-toggle="dropdown">
+                                Price
+                            </button>
+                            <ul class="dropdown-menu px-3 py-2" aria-labelledby="price">
+                                <li class="d-flex flex-column gap-2">
+                                    <label>
+                                        <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request('min_price') }}" onchange="this.form.submit()">                                    </label>
+                                    <label>
+                                        <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request('max_price') }}" onchange="this.form.submit()">                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="catalog-pill dropdown-toggle btn" type="button" id="color" data-bs-toggle="dropdown">
+                                Color
+                            </button>
+                            <ul class="dropdown-menu px-3" aria-labelledby="color">
+                                @foreach($colorTags as $colorTag)
+                                    <li>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="color[]"
+                                                value="{{ $colorTag->name }}"
+                                                {{ in_array($colorTag->name, request()->input('color', [])) ? 'checked' : '' }}
+                                                onchange="this.form.submit()"
+                                            >
+                                            {{ $colorTag->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="catalog-pill dropdown-toggle btn" type="button" id="size" data-bs-toggle="dropdown">
+                                Size
+                            </button>
+                            <ul class="dropdown-menu px-3" aria-labelledby="size">
+                                @if(request('category') === 'Shoes')
+                                    @foreach($shoeSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+                                @elseif(request('category') === 'Clothing' || request('category') === 'Equipment')
+                                    @foreach($clothingSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    @foreach($clothingSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+
+                                    @foreach($shoeSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="catalog-pill dropdown-toggle btn" type="button" id="brand" data-bs-toggle="dropdown">
+                                Brand
+                            </button>
+                            <ul class="dropdown-menu px-3" aria-labelledby="brand">
+                                @foreach($brands as $brand)
+                                    <li>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="brand[]"
+                                                value="{{ $brand->name }}"
+                                                {{ in_array($brand->name, request()->input('brand', [])) ? 'checked' : '' }}
+                                                onchange="this.form.submit()"
+                                            >
+                                            {{ $brand->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <a href="{{ route('women') }}" class="catalog-pill btn" style="background-color: #e0e0e0; color: black;">Clear Filters</a>
                     </div>
 
-                    <div class="dropdown">
-                        <button class="catalog-pill dropdown-toggle btn" type="button" id="color" data-bs-toggle="dropdown">
-                            Color
-                        </button>
-                        <ul class="dropdown-menu px-3" aria-labelledby="color">
-                            <li><label><input type="checkbox" value="black">Black</label></li>
-                            <li><label><input type="checkbox" value="white">White</label></li>
-                            <li><label><input type="checkbox" value="gray">Gray</label></li>
-                            <li><label><input type="checkbox" value="navy">Navy</label></li>
-                            <li><label><input type="checkbox" value="blue">Blue</label></li>
-                            <li><label><input type="checkbox" value="red">Red</label></li>
-                            <li><label><input type="checkbox" value="black">Green</label></li>
-                            <li><label><input type="checkbox" value="white">Yellow</label></li>
-                            <li><label><input type="checkbox" value="gray">Orange</label></li>
-                            <li><label><input type="checkbox" value="navy">Pink</label></li>
-                            <li><label><input type="checkbox" value="blue">Purple</label></li>
-                            <li><label><input type="checkbox" value="red">Brown</label></li>
-                            <li><label><input type="checkbox" value="red">Beige</label></li>
-                        </ul>
-                    </div>
 
-                    <div class="dropdown">
-                        <button class="catalog-pill dropdown-toggle btn" type="button" id="size" data-bs-toggle="dropdown">
-                            Size
-                        </button>
-                        <ul class="dropdown-menu px-3" aria-labelledby="size">
-                            <li><label><input type="checkbox" name="clothingSize" value="xs">XS</label></li>
-                            <li><label><input type="checkbox" name="clothingSize" value="s">S</label></li>
-                            <li><label><input type="checkbox" name="clothingSize" value="m">M</label></li>
-                            <li><label><input type="checkbox" name="clothingSize" value="xl">XL</label></li>
-                            <li><label><input type="checkbox" name="clothingSize" value="xxl">XXL</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="355">35.5</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="36">36</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="37">37</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="375">37.5</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="38">38</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="39">39</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="395">39.5</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="40">40</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="41">41</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="415">41.5</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="42">42</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="425">42.5</label></li>
-                            <li><label><input type="checkbox" name="shoeSize" value="43">43</label></li>
-                        </ul>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="catalog-pill dropdown-toggle btn" type="button" id="brand" data-bs-toggle="dropdown">
-                            Brand
-                        </button>
-                        <ul class="dropdown-menu px-3" aria-labelledby="size">
-                            <li><label><input type="checkbox" name="brand" value="butora"> Butora</label></li>
-                            <li><label><input type="checkbox" name="brand" value="crux"> Crux</label></li>
-                            <li><label><input type="checkbox" name="brand" value="evolv"> Evolv</label></li>
-                            <li><label><input type="checkbox" name="brand" value="e9"> E9</label></li>
-                            <li><label><input type="checkbox" name="brand" value="contour"> Contour</label></li>
-                        </ul>
+                    <div class="d-flex flex-wrap">
+                        <span>SORT BY:</span>
+                        <label>
+                            <select name="sort" style="border: none; background: transparent" onchange="this.form.submit()">
+                                <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>NEWEST</option>
+                                <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>PRICE: LOW TO HIGH</option>
+                                <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>PRICE: HIGH TO LOW</option>
+                            </select>
+                        </label>
                     </div>
                 </div>
-
-                <div class="d-flex flex-wrap">
-                    <span>SORT BY:</span>
-                    <label>
-                        <select style="border: none; background: transparent">
-                            <option>RELEVANCE</option>
-                            <option>PRICE: LOW TO HIGH</option>
-                            <option>PRICE: HIGH TO LOW</option>
-                            <option>NEWEST</option>
-                            <option>POPULARITY</option>
-                        </select>
-                    </label>
-                </div>
-            </div>
+            </form>
         </div>
     </section>
 

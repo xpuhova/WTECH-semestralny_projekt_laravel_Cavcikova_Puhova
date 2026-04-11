@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Tag;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -30,39 +29,55 @@ class DatabaseSeeder extends Seeder
         $chalk_bags = Category::create(['name' => 'Chalk Bags', 'parent_category_id' => $equipment->id]);
 
         // Tags
-        $menTag = Tag::create(['name' => 'Men']);
-        $womenTag = Tag::create(['name' => 'Women']);
-        $kidsTag = Tag::create(['name' => 'Kids']);
-        $saleTag = Tag::create(['name' => 'Sale']);
-        $size35 = Tag::create(['name' => '35']);
-        $size355 = Tag::create(['name' => '35,5']);
-        $size36 = Tag::create(['name' => '36']);
-        $size365 = Tag::create(['name' => '36,5']);
-        $size37 = Tag::create(['name' => '37']);
-        $size375 = Tag::create(['name' => '37,5']);
-        $size38 = Tag::create(['name' => '38']);
-        $size385 = Tag::create(['name' => '38,5']);
-        $size39 = Tag::create(['name' => '39']);
-        $size395 = Tag::create(['name' => '39,5']);
-        $size40 = Tag::create(['name' => '40']);
-        $size405 = Tag::create(['name' => '40,5']);
-        $size41 = Tag::create(['name' => '41']);
-        $size415 = Tag::create(['name' => '41,5']);
-        $size42 = Tag::create(['name' => '42']);
-        $size425 = Tag::create(['name' => '42,5']);
-        $size43 = Tag::create(['name' => '43']);
-        $size435 = Tag::create(['name' => '43,5']);
-        $size44 = Tag::create(['name' => '44']);
-        $size445 = Tag::create(['name' => '44,5']);
-        $size45 = Tag::create(['name' => '45']);
-        $size455 = Tag::create(['name' => '45,5']);
-        $size46 = Tag::create(['name' => '46']);
-        $sizeXXS = Tag::create(['name' => 'XXS']);
-        $sizeXS = Tag::create(['name' => 'XS']);
-        $sizeS = Tag::create(['name' => 'S']);
-        $sizeM = Tag::create(['name' => 'M']);
-        $sizeL = Tag::create(['name' => 'L']);
-        $sizeXL = Tag::create(['name' => 'XL']);
+        // Audience
+        $audienceTags = collect(['Men', 'Women', 'Kids'])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'audience',
+            ])];
+        });
+
+        // Promo
+        $promoTags = collect(['Sale'])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'promo',
+            ])];
+        });
+
+        // Colors
+        $colorTags = collect([
+            'Black', 'White', 'Gray', 'Navy', 'Blue', 'Red',
+            'Green', 'Yellow', 'Orange', 'Pink', 'Purple',
+            'Brown', 'Beige',
+        ])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'color',
+            ])];
+        });
+
+        // Shoe sizes
+        $shoeSizes = collect([
+            '35', '35.5', '36', '36.5', '37', '37.5', '38', '38.5', '39', '39.5',
+            '40', '40.5', '41', '41.5', '42', '42.5', '43', '43.5', '44', '44.5',
+            '45', '45.5', '46',
+        ])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'shoe_size',
+            ])];
+        });
+
+        // Clothing sizes
+        $clothingSizes = collect([
+            'XXS', 'XS', 'S', 'M', 'L', 'XL',
+        ])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'clothing_size',
+            ])];
+        });
 
         // Brands
         $laSportiva = Brand::create(['name' => 'La Sportiva']);
@@ -259,22 +274,56 @@ As for the rubber, you will find a 4 mm Vibram XS Edge, while in the women's ver
 
         // Product tags
         $p1->tags()->attach([
-            $menTag->id, $womenTag->id, $size35->id, $size355->id, $size36->id,
-            $size365->id, $size37->id, $size375->id, $size38->id, $size385->id,
-            $size39->id, $size395->id, $size40->id, $size405->id, $size41->id,
-            $size415->id, $size42->id, $size425->id, $size43->id, $size435->id,
-            $size44->id, $size445->id, $size45->id, $size455->id, $size46->id,
-            $saleTag->id,
+            $audienceTags['Men']->id,
+            $audienceTags['Women']->id,
+            $colorTags['Black']->id,
+            $colorTags['Yellow']->id,
+            $shoeSizes['35']->id,
+            $shoeSizes['35.5']->id,
+            $shoeSizes['36']->id,
+            $shoeSizes['36.5']->id,
+            $shoeSizes['37']->id,
+            $shoeSizes['37.5']->id,
+            $shoeSizes['38']->id,
+            $shoeSizes['38.5']->id,
+            $shoeSizes['39']->id,
+            $shoeSizes['39.5']->id,
+            $shoeSizes['40']->id,
+            $shoeSizes['40.5']->id,
+            $shoeSizes['41']->id,
+            $shoeSizes['41.5']->id,
+            $shoeSizes['42']->id,
+            $shoeSizes['42.5']->id,
+            $shoeSizes['43']->id,
+            $shoeSizes['43.5']->id,
+            $shoeSizes['44']->id,
+            $shoeSizes['44.5']->id,
+            $shoeSizes['45']->id,
+            $shoeSizes['45.5']->id,
+            $shoeSizes['46']->id,
+            $promoTags['Sale']->id,
         ]);
 
         $p2->tags()->attach([
-            $womenTag->id, $sizeXXS->id, $sizeXS->id, $sizeS->id,
-            $sizeM->id, $sizeL->id, $sizeXL->id,
+            $audienceTags['Women']->id,
+            $colorTags['Pink']->id,
+            $clothingSizes['XXS']->id,
+            $clothingSizes['XS']->id,
+            $clothingSizes['S']->id,
+            $clothingSizes['M']->id,
+            $clothingSizes['L']->id,
+            $clothingSizes['XL']->id,
         ]);
 
         $p3->tags()->attach([
-            $menTag->id, $womenTag->id, $sizeS->id, $sizeM->id,
-            $sizeL->id, $sizeXL->id,
+            $audienceTags['Men']->id,
+            $audienceTags['Women']->id,
+            $colorTags['Black']->id,
+            $colorTags['Green']->id,
+            $clothingSizes['S']->id,
+            $clothingSizes['M']->id,
+            $clothingSizes['L']->id,
+            $clothingSizes['XL']->id,
         ]);
     }
 }
