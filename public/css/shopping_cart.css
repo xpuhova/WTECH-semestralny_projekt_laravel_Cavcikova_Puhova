@@ -1,0 +1,150 @@
+.cart-item {
+    border-bottom: 1px solid #BBBBBB;
+}
+
+.cart-section-label {
+    font-family: "Manrope", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.cart-item-img {
+    width: 100%;
+    max-width: 220px;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+}
+
+.cart-item-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.quantity-btn-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid black;
+    border-radius: 12px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+}
+
+.quantity-btn-small:hover {
+    color: black;
+    border-color: #BBBBBB;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.quantity-value {
+    font-size: 20px;
+    color: black;
+}
+
+.cart-price {
+    font-size: 20px;
+    color: black;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 24px;
+}
+
+
+@media (max-width: 992px) {
+    .shopping-cart-title {
+        font-size: 72px;
+    }
+
+    .cart-item-img {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shopping-cart-title {
+        font-size: 52px;
+    }
+
+    .cart-section-label {
+        font-size: 20px;
+    }
+
+    .cart-item-title {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .cart-item-img {
+        max-width: 160px;
+    }
+
+    .quantity-btn-small {
+        min-width: 36px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .quantity-value {
+        font-size: 20px;
+    }
+
+    .cart-price {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .shopping-cart-title {
+        font-size: 38px;
+    }
+
+    .cart-section-label {
+        font-size: 18px;
+    }
+
+    .cart-item-title {
+        font-size: 18px;
+    }
+
+    .cart-item-img {
+        max-width: 130px;
+    }
+
+    .quantity-control {
+        gap: 8px;
+    }
+
+    .quantity-btn-small {
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+
+    .quantity-value {
+        font-size: 18px;
+    }
+
+    .cart-price {
+        font-size: 15px;
+    }
+}

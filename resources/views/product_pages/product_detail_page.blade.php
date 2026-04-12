@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/product_detail_page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/shopping_cart.css') }}">
 </head>
 
 <body>
@@ -66,9 +67,8 @@
                 <div class="col-12 col-sm-6">
                     <nav class="d-block d-sm-none">
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Women</a></li>
-                            <li><a href="product_detail_page.blade.php">Shaman Lace LV</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="#">{{ $product->name }}</a></li>
                         </ol>
                     </nav>
                     <div class="d-sm-flex d-none flex-column">
@@ -108,9 +108,8 @@
                 <div class="col-12 col-sm-6 ps-4">
                     <nav class="d-none d-sm-block">
                         <ol class="breadcrumb">
-                            <li><a href="../landing_page/index.html">Home</a></li>
-                            <li><a href="womens_page.html">Women</a></li>
-                            <li><a href="product_detail_page.blade.php">Shaman Lace LV</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="#">{{ $product->name }}</a></li>
                         </ol>
                     </nav>
                     @if($product->tags->contains('name','Sale'))
@@ -137,21 +136,38 @@
                         </div>
                         <p class="description-text">COLOR: {{ Str::upper($product->color) }}</p>
                         <hr class="catalog-divider my-4">
-                        @if($product->category->name == "Shoes" || $product->category->name == "Clothing")
-                            <p class="description-text">SIZE</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                @if($product->category->name == "Shoes")
-                                    @foreach($product->tags->where('type', 'shoe_size') as $tag)
-                                        <a class="size-button">{{ $tag->name }}</a>
-                                    @endforeach
-                                @elseif($product->category->name == "Clothing")
-                                    @foreach($product->tags->where('type', 'clothing_size') as $tag)
-                                        <a class="size-button">{{ $tag->name }}</a>
-                                    @endforeach
-                                @endif
+                        <form method="POST" action="{{ route('cart.add') }}">
+                            @csrf
+                            @if($product->category->name == "Shoes" || $product->category->name == "Clothing")
+                                <p class="description-text">SIZE</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    @if($product->category->name == "Shoes")
+                                        @foreach($product->tags->where('type', 'shoe_size') as $tag)
+                                            <label class="size-button">
+                                                <input type="radio" class="btn-check" name="size" value="{{ $tag->name }}" required>
+                                                <span>{{ $tag->name }}</span>
+                                            </label>
+                                        @endforeach
+                                    @elseif($product->category->name == "Clothing")
+                                        @foreach($product->tags->where('type', 'clothing_size') as $tag)
+                                            <label class="size-button">
+                                                <input type="radio" class="btn-check" name="size" value="{{ $tag->name }}" required>
+                                                <span>{{ $tag->name }}</span>
+                                            </label>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            @endif
+                            <div class="d-flex  mt-3">
+                                <button type="button" onclick="changeQuantity(-1)" class="quantity-btn-small">-</button>
+                                    <input class="quantity-field" type="number" id="quantity" name="quantity" value="1" min="1">
+                                <button type=""button onclick="changeQuantity(1)" class="quantity-btn-small">+</button>
                             </div>
-                        @endif
-                        <a class="selection-button mt-3"><i class="ph ph-tote-simple ph-fill"></i>ADD TO BASKET</a>
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button type="submit" class="selection-button mt-3">
+                                <i class="ph ph-tote-simple ph-fill"></i>ADD TO BASKET
+                            </button>
+                        </form>
                         <p class="info-text mt-3"><i class="ph ph-package"></i>Standard delivery within 4-5 business days</p>
                         <p class="info-text"><i class="ph ph-gift ph-fill"></i>Free shipping for all orders above 100€</p>
                     </div>
@@ -303,6 +319,7 @@
     </div>
 </footer>
 
+<script src="{{ asset('js/basket_scripts.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 </body>

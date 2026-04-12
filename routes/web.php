@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,6 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 

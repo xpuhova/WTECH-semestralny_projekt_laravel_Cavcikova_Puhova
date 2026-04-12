@@ -60,7 +60,7 @@
     opacity: 1;
 }
 
-.size-button {
+.size-button span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -78,7 +78,11 @@
     transition: all 0.2s ease;
 }
 
-.size-button:hover {
+.size-button input:checked + span {
+    background-color: lightgray;
+}
+
+.size-button span:hover {
     color: black;
     border-color: #BBBBBB;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
@@ -165,4 +169,22 @@
     font-family: Open Sans;
     font-size: 20px;
     font-weight: 700;
+}
+
+.quantity-field {
+    width: 36px;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
 }
