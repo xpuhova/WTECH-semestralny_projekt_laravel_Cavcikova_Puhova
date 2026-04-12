@@ -27,19 +27,19 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-uppercase fw-semibold gap-lg-5">
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/mens_page.html">Men</a>
+                        <a class="nav-link" href="{{ route('men') }}">Men</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/womens_page.html">Women</a>
+                        <a class="nav-link" href="{{ route('women') }}">Women</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/kids_page.html">Kids</a>
+                        <a class="nav-link" href="{{ route('kids') }}">Kids</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/equipment_page.html">Equipment</a>
+                        <a class="nav-link" href="{{ route('equipment') }}">Equipment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/sale_page.html">Sale</a>
+                        <a class="nav-link" href="{{ route('sale') }}">Sale</a>
                     </li>
                 </ul>
 

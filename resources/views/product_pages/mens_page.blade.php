@@ -36,10 +36,10 @@
                         <a class="nav-link" href="{{ route('kids') }}">Kids</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/equipment_page.html">Equipment</a>
+                        <a class="nav-link" href="{{ route('equipment') }}">Equipment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/sale_page.html">Sale</a>
+                        <a class="nav-link" href="{{ route('sale') }}">Sale</a>
                     </li>
                 </ul>
 
@@ -88,6 +88,14 @@
             <hr class="catalog-divider my-4">
 
             <form method="GET" action="{{ route('men') }}">
+                @if(request()->filled('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+
+                @if(request()->filled('sale'))
+                    <input type="hidden" name="sale" value="{{ request('sale') }}">
+                @endif
+
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
                     <div class="filter-buttons d-flex flex-wrap gap-3">
                         <div class="dropdown">
@@ -216,7 +224,16 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <a href="{{ route('men') }}" class="catalog-pill btn" style="background-color: #e0e0e0; color: black;">Clear Filters</a>
+                        <a
+                            href="{{ route('men', array_filter([
+                                'category' => request('category'),
+                                'sale' => request('sale'),
+                            ])) }}"
+                            class="catalog-pill btn"
+                            style="background-color: #e0e0e0; color: black;"
+                        >
+                            Clear Filters
+                        </a>
                     </div>
 
 

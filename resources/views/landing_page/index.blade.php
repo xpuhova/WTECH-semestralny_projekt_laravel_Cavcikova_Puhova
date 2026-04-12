@@ -36,10 +36,10 @@
                         <a class="nav-link" href="{{ route('kids') }}">Kids</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/equipment_page.html">Equipment</a>
+                        <a class="nav-link" href="{{ route('equipment') }}">Equipment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/sale_page.html">Sale</a>
+                        <a class="nav-link" href="{{ route('sale') }}">Sale</a>
                     </li>
                 </ul>
 
@@ -154,7 +154,7 @@
                     <article class="promo-card promo-sale d-flex align-items-end">
                         <div class="promo-content text-white">
                             <h2 class="display-title text-white mb-2">Sale</h2>
-                            <a href="../product_pages/sale_page.html" class="btn btn-light pill-button mt-3">
+                            <a href="{{ route('sale') }}" class="btn btn-light pill-button mt-3">
                                 Discover More <span class="ms-2">→</span>
                             </a>
                         </div>
