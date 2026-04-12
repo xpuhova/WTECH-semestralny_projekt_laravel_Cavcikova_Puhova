@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -23,6 +24,7 @@ Route::get('/men', [ProductController::class, 'men'])->name('men');
 
 Route::get('/kids', [ProductController::class, 'kids'])->name('kids');
 
+Route::get('/product/{id}', [ProductController::class, 'detail'])->name('detail');
 
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
@@ -31,3 +33,4 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+

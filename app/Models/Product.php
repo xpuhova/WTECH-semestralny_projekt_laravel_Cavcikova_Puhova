@@ -38,4 +38,14 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function finalPrice()
+    {
+        return $this->discount_percent > 0 ? $this->price * (1 - $this->discount_percent / 100) : $this->price;
+    }
+
+    public function getFeaturesAttribute()
+    {
+        return preg_split('/\n|\r\n|\r/', $this->features_specifications);
+    }
 }

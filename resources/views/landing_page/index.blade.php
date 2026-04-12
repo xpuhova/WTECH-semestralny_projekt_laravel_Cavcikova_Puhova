@@ -82,7 +82,7 @@
             </div>
             <div class="row gx-5 gy-4">
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="../product_pages/product_detail_page.html" class="product-card-link">
+                    <a href="../product_pages/product_detail_page.blade.php" class="product-card-link">
                         <article class="card h-100 border-0 bg-transparent">
                             <img src="{{ asset('images/lasportiva_miura_vs.jpg') }}" class="card-img-new-in" alt="La Sportiva Miura VS climbing shoes">
                             <div class="card-body text-center">
@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="../product_pages/product_detail_page.html" class="product-card-link">
+                    <a href="../product_pages/product_detail_page.blade.php" class="product-card-link">
                         <article class="card h-100 border-0 bg-transparent">
                             <img src="{{ asset('images/stan_chalk_bag.jpg') }}" class="card-img-new-in" alt="8b+ 8BPLUS Chalk Bag &quot;Stan&quot;">
                             <div class="card-body text-center">
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="../product_pages/product_detail_page.html" class="product-card-link">
+                    <a href="../product_pages/product_detail_page.blade.php" class="product-card-link">
                         <article class="card h-100 border-0 bg-transparent">
                             <img src="{{ asset('images/E9_enove_bia-vs_women_pants.jpg') }}" class="card-img-new-in" alt="E9 Enove Bia-Vs women's pants">
                             <div class="card-body text-center">
@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="../product_pages/product_detail_page.html" class="product-card-link">
+                    <a href="../product_pages/product_detail_page.blade.php" class="product-card-link">
                         <article class="card h-100 border-0 bg-transparent">
                             <img src="{{ asset('images/BD_black_diamond_vision_harness.jpg') }}" class="card-img-new-in" alt="BD Black Diamond Vision Airnet Recco harness">
                             <div class="card-body text-center">

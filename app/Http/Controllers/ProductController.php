@@ -328,4 +328,11 @@ class ProductController extends Controller
             'brands' => $brands,
         ]);
     }
+
+    public function detail($id)
+    {
+        $product = Product::with(['images', 'brand', 'tags'])->findOrFail($id);
+
+        return view('product_pages.product_detail_page', compact('product'));
+    }
 }
