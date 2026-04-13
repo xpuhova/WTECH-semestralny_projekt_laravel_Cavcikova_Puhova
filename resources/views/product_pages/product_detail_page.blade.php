@@ -37,10 +37,10 @@
                         <a class="nav-link" href="{{ route('kids') }}">Kids</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/equipment_page.html">Equipment</a>
+                        <a class="nav-link" href="{{ route('equipment') }}">Equipment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../product_pages/sale_page.html">Sale</a>
+                        <a class="nav-link" href="{{ route('sale') }}">Sale</a>
                     </li>
                 </ul>
 
@@ -51,7 +51,7 @@
                     <a href="{{ route('men') }}" class="nav-icon fs-5" aria-label="User account">
                         <i class="ph ph-user"></i>
                     </a>
-                    <a href="../shopping_cart_and_order_pages/shopping_cart.html" class="nav-icon fs-5" aria-label="Shopping bag">
+                    <a href="{{ route('cart') }}" class="nav-icon fs-5" aria-label="Shopping bag">
                         <i class="ph ph-handbag"></i>
                     </a>
                 </div>
@@ -161,7 +161,7 @@
                             <div class="d-flex  mt-3">
                                 <button type="button" onclick="changeQuantity(-1)" class="quantity-btn-small">-</button>
                                     <input class="quantity-field" type="number" id="quantity" name="quantity" value="1" min="1">
-                                <button type=""button onclick="changeQuantity(1)" class="quantity-btn-small">+</button>
+                                <button type="button" onclick="changeQuantity(1)" class="quantity-btn-small">+</button>
                             </div>
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <button type="submit" class="selection-button mt-3">

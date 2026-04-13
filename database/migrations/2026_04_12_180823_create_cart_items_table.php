@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->unique(['product_id', 'cart_id']);
+            $table->unique(['product_id', 'cart_id', 'size']);
         });
     }
 

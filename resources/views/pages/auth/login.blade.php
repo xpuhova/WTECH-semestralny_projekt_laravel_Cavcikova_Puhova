@@ -55,7 +55,7 @@
                             <i class="ph ph-user"></i>
                         </a>
                     @endauth
-                    <a href="../shopping_cart_and_order_pages/shopping_cart.html" class="nav-icon fs-5" aria-label="Shopping bag">
+                    <a href="{{ route('cart') }}" class="nav-icon fs-5" aria-label="Shopping bag">
                         <i class="ph ph-handbag"></i>
                     </a>
                 </div>

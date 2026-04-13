@@ -41,3 +41,9 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('l
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+
+Route::post('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
+
+Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+

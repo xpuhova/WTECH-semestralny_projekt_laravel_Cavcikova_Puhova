@@ -56,7 +56,7 @@
                             <i class="ph ph-user"></i>
                         </a>
                     @endauth
-                    <a href="../shopping_cart_and_order_pages/shopping_cart.html" class="nav-icon fs-5" aria-label="Shopping bag">
+                    <a href="{{ route('cart') }}" class="nav-icon fs-5" aria-label="Shopping bag">
                         <i class="ph ph-handbag"></i>
                     </a>
                 </div>
@@ -256,7 +256,7 @@
             <div class="row gx-5 gy-4">
                 @foreach($products as $product)
                     <div class="col-12 col-sm-6 col-lg-3">
-                        <a href="#" class="product-card-link">
+                        <a href="{{ route('detail', $product->id) }}" class="product-card-link">
                             <article class="card h-100 border-0 bg-transparent">
                                 <img
                                     src="{{ asset($product->images->sortBy('sort_order')->first()->image_url ?? 'images/placeholder.jpg') }}"

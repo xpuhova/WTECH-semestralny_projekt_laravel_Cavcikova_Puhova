@@ -13,4 +13,19 @@ class CartItem extends Model
         'quantity',
     ];
     //
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function totalPrice()
+    {
+        return $this->product->finalPrice() * $this->quantity;
+    }
+
+    public function fullPrice()
+    {
+        return $this->product->price * $this->quantity;
+    }
 }
