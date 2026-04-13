@@ -40,6 +40,11 @@
     background-position: center;
 }
 
+.hero-search-result {
+    background-image: url("../images/search_hero.webp");
+    background-position: center;
+}
+
 .catalog-pill {
     display: inline-flex;
     align-items: center;

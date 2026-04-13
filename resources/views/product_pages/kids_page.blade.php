@@ -44,9 +44,18 @@
                 </ul>
 
                 <div class="d-flex align-items-center gap-4">
-                    <a href="#" class="nav-icon fs-5" aria-label="Search">
-                        <i class="ph ph-magnifying-glass"></i>
-                    </a>
+                    <form method="GET" action="{{ route('search') }}" class="navbar-search-form d-flex align-items-center">
+                        <input
+                            type="text"
+                            name="q"
+                            class="form-control navbar-search-input"
+                            placeholder="Search"
+                            value="{{ request('q') }}"
+                        >
+                        <button type="submit" class="nav-icon fs-5 border-0 bg-transparent" aria-label="Search">
+                            <i class="ph ph-magnifying-glass"></i>
+                        </button>
+                    </form>
                     @auth
                         <a href="{{ route('profile') }}" class="nav-icon fs-5" aria-label="User account">
                             <i class="ph ph-user"></i>
@@ -287,23 +296,9 @@
 
     <section class="pagination-section py-5">
         <div class="container-fluid px-4 px-xl-5">
-            <ul class="pagination justify-content-center mb-0">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Previous</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
+            <div class="d-flex justify-content-center">
+                {{ $products->links() }}
+            </div>
         </div>
     </section>
 

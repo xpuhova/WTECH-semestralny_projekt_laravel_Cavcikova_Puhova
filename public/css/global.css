@@ -28,6 +28,14 @@ body {
     color: #BBBBBB;
 }
 
+.navbar-search-form {
+    gap: 0.5rem;
+}
+
+.navbar-search-input {
+    max-width: 200px;
+}
+
 .display-title {
     font-family: "Manrope", sans-serif;
     font-size: 64px;

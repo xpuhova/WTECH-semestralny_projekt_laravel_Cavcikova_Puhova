@@ -43,9 +43,18 @@
                 </ul>
 
                 <div class="d-flex align-items-center gap-4">
-                    <a href="#" class="nav-icon fs-5" aria-label="Search">
-                        <i class="ph ph-magnifying-glass"></i>
-                    </a>
+                    <form method="GET" action="{{ route('search') }}" class="navbar-search-form d-flex align-items-center">
+                        <input
+                            type="text"
+                            name="q"
+                            class="form-control navbar-search-input"
+                            placeholder="Search"
+                            value="{{ request('q') }}"
+                        >
+                        <button type="submit" class="nav-icon fs-5 border-0 bg-transparent" aria-label="Search">
+                            <i class="ph ph-magnifying-glass"></i>
+                        </button>
+                    </form>
                     @auth
                         <a href="{{ route('profile') }}" class="nav-icon fs-5" aria-label="User account">
                             <i class="ph ph-user"></i>

@@ -47,3 +47,5 @@ Route::post('/cart/delete', [CartController::class, 'delete'])->name('cart.delet
 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
+Route::get('/search', [ProductController::class, 'search'])->name('search');
+

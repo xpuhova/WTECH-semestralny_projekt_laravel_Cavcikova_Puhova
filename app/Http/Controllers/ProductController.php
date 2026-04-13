@@ -501,7 +501,7 @@ class ProductController extends Controller
         // Color filter
         if (request()->filled('color')) {
             $colors = request('color');
-            if (!is_array($colors)) {
+            if (! is_array($colors)) {
                 $colors = [$colors];
             }
 
@@ -513,7 +513,7 @@ class ProductController extends Controller
         // Size filter
         if (request()->filled('size')) {
             $sizes = request('size');
-            if (!is_array($sizes)) {
+            if (! is_array($sizes)) {
                 $sizes = [$sizes];
             }
 
@@ -525,7 +525,7 @@ class ProductController extends Controller
         // Brand filter
         if (request()->filled('brand')) {
             $brands = request('brand');
-            if (!is_array($brands)) {
+            if (! is_array($brands)) {
                 $brands = [$brands];
             }
 
@@ -577,5 +577,107 @@ class ProductController extends Controller
         $product = Product::with(['images', 'brand', 'tags'])->findOrFail($id);
 
         return view('product_pages.product_detail_page', compact('product'));
+    }
+
+    public function search()
+    {
+        $search = request('q');
+
+        $query = Product::with(['brand', 'images']);
+
+        if (! empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'ILIKE', '%'.$search.'%')
+                    ->orWhere('brief_description', 'ILIKE', '%'.$search.'%')
+                    ->orWhere('detailed_description', 'ILIKE', '%'.$search.'%')
+                    ->orWhereHas('brand', function ($brandQuery) use ($search) {
+                        $brandQuery->where('name', 'ILIKE', '%'.$search.'%');
+                    });
+            });
+        }
+
+        if (request()->filled('min_price')) {
+            $query->whereRaw(
+                'price * (1 - discount_percent / 100.0) >= ?',
+                [request('min_price')]
+            );
+        }
+
+        if (request()->filled('max_price')) {
+            $query->whereRaw(
+                'price * (1 - discount_percent / 100.0) <= ?',
+                [request('max_price')]
+            );
+        }
+
+        if (request()->filled('color')) {
+            $colors = request('color');
+            if (! is_array($colors)) {
+                $colors = [$colors];
+            }
+
+            $query->whereHas('tags', function ($q) use ($colors) {
+                $q->whereIn('name', $colors);
+            });
+        }
+
+        if (request()->filled('size')) {
+            $sizes = request('size');
+            if (! is_array($sizes)) {
+                $sizes = [$sizes];
+            }
+
+            $query->whereHas('tags', function ($q) use ($sizes) {
+                $q->whereIn('name', $sizes);
+            });
+        }
+
+        if (request()->filled('brand')) {
+            $brands = request('brand');
+            if (! is_array($brands)) {
+                $brands = [$brands];
+            }
+
+            $query->whereHas('brand', function ($q) use ($brands) {
+                $q->whereIn('name', $brands);
+            });
+        }
+
+        $sort = request('sort');
+
+        if ($sort === 'price_asc') {
+            $query->orderByRaw('price * (1 - discount_percent / 100.0) asc');
+        } elseif ($sort === 'price_desc') {
+            $query->orderByRaw('price * (1 - discount_percent / 100.0) desc');
+        } else {
+            $query->latest();
+        }
+
+        $products = $query->paginate(8)->withQueryString();
+
+        $colorTags = Tag::where('type', 'color')->orderBy('name')->get();
+
+        $shoeSizeTags = Tag::where('type', 'shoe_size')->get()
+            ->sortBy(function ($tag) {
+                return (float) $tag->name;
+            });
+
+        $clothingSizeOrder = ['XXS', 'XS', 'S', 'M', 'L', 'XL'];
+
+        $clothingSizeTags = Tag::where('type', 'clothing_size')->get()
+            ->sortBy(function ($tag) use ($clothingSizeOrder) {
+                return array_search($tag->name, $clothingSizeOrder);
+            });
+
+        $brands = Brand::orderBy('name')->get();
+
+        return view('product_pages.search_results', [
+            'products' => $products,
+            'search' => $search,
+            'colorTags' => $colorTags,
+            'shoeSizeTags' => $shoeSizeTags,
+            'clothingSizeTags' => $clothingSizeTags,
+            'brands' => $brands,
+        ]);
     }
 }
