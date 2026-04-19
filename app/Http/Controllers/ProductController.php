@@ -464,7 +464,6 @@ class ProductController extends Controller
                     });
             });
 
-        // Shortcut category filter
         if (request()->filled('category')) {
             $categoryName = request('category');
 
@@ -476,14 +475,12 @@ class ProductController extends Controller
             });
         }
 
-        // Sale shortcut filter
         if (request()->filled('sale')) {
             $query->whereHas('tags', function ($q) {
                 $q->where('name', 'Sale');
             });
         }
 
-        // Price filter using discounted price
         if (request()->filled('min_price')) {
             $query->whereRaw(
                 'price * (1 - discount_percent / 100.0) >= ?',
@@ -498,7 +495,6 @@ class ProductController extends Controller
             );
         }
 
-        // Color filter
         if (request()->filled('color')) {
             $colors = request('color');
             if (! is_array($colors)) {
@@ -510,7 +506,6 @@ class ProductController extends Controller
             });
         }
 
-        // Size filter
         if (request()->filled('size')) {
             $sizes = request('size');
             if (! is_array($sizes)) {
@@ -522,7 +517,6 @@ class ProductController extends Controller
             });
         }
 
-        // Brand filter
         if (request()->filled('brand')) {
             $brands = request('brand');
             if (! is_array($brands)) {
@@ -534,7 +528,6 @@ class ProductController extends Controller
             });
         }
 
-        // Sorting
         $sort = request('sort');
 
         if ($sort === 'price_asc') {
