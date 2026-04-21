@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -29,6 +33,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
+        $this->configureLogin();
     }
 
     /**
@@ -68,5 +73,48 @@ class FortifyServiceProvider extends ServiceProvider
 
             return Limit::perMinute(5)->by($throttleKey);
         });
+    }
+
+    private function configureLogin(): void
+    {
+        Fortify::authenticateUsing(function (Request $request) {
+            $sessionId = $request->session()->getId();
+            $user = User::where('email', request('email'))->first();
+            if ($user && Hash::check($request->password, $user->password)) {
+                $this->mergeCartsOnLogin($user->id, $sessionId);
+            }
+            return $user;
+        });
+    }
+
+    private function mergeCartsOnLogin(int $id, string $sessionId): void
+    {
+        $guestCart = Cart::where('session_token', $sessionId)->first();
+        if (! $guestCart) {
+            return;
+        }
+        $userCart = Cart::where('user_id', $id)->first();
+        if (! $userCart) {
+            $guestCart->update([
+                'user_id' => $id,
+                'session_token' => null,
+            ]);
+        } else {
+            foreach ($guestCart->items as $item) {
+                $userItem = $userCart->items()->where(['product_id' => $item->product_id, 'size' => $item->size])->first();
+                if ($userItem) {
+                    $userItem->quantity += $item->quantity;
+                    $userItem->save();
+                } else {
+                    CartItem::create([
+                        'product_id' => $item->product_id,
+                        'cart_id' => $userCart->id,
+                        'size' => $item->size,
+                        'quantity' => $item->quantity,
+                    ]);
+                }
+            }
+            $guestCart->delete();
+        }
     }
 }
