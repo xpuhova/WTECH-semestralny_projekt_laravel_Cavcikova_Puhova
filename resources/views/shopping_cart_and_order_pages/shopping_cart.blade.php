@@ -44,13 +44,29 @@
                 </ul>
 
                 <div class="d-flex align-items-center gap-4">
-                    <a href="#" class="nav-icon fs-5" aria-label="Search">
-                        <i class="ph ph-magnifying-glass"></i>
-                    </a>
-                    <a href="{{ route('profile') }}" class="nav-icon fs-5" aria-label="User account">
-                        <i class="ph ph-user"></i>
-                    </a>
-                    <a href="{{ route('login') }}" class="nav-icon fs-5" aria-label="Shopping bag">
+                    <form method="GET" action="{{ route('search') }}"
+                          class="navbar-search-form d-flex align-items-center">
+                        <input
+                            type="text"
+                            name="q"
+                            class="form-control navbar-search-input"
+                            placeholder="Search"
+                            value="{{ request('q') }}"
+                        >
+                        <button type="submit" class="nav-icon fs-5 border-0 bg-transparent" aria-label="Search">
+                            <i class="ph ph-magnifying-glass"></i>
+                        </button>
+                    </form>
+                    @auth
+                        <a href="{{ route('profile') }}" class="nav-icon fs-5" aria-label="User account">
+                            <i class="ph ph-user"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-icon fs-5" aria-label="User account">
+                            <i class="ph ph-user"></i>
+                        </a>
+                    @endauth
+                    <a href="{{ route('cart') }}" class="nav-icon fs-5" aria-label="Shopping bag">
                         <i class="ph ph-handbag"></i>
                     </a>
                 </div>
@@ -186,18 +202,19 @@
                                 <span>{{ number_format($cart->preDiscount(),2) }}€</span>
                             </div>
 
+                            @php
+                                $saleItems = $cart->discountedItems();
+                            @endphp
                             <div class="summary-row mb-4">
                                 <span>
                                     Discounts<br>
-                                    @if($item->product->tags->contains('name','Sale'))
-                                        Sale<br>
-                                    @else
+                                    @if($saleItems->isEmpty())
                                         Does not apply<br>
+                                    @else
+                                        Sale<br>
                                     @endif
-                                    @foreach($cart->items as $item)
-                                        @if($item->product->tags->contains('name','Sale'))
-                                            <span class="summary-note">{{ $item->product->name }}</span>
-                                        @endif
+                                    @foreach($saleItems as $saleItem)
+                                        <span class="summary-note">{{ $saleItem->product->name }}</span><br>
                                     @endforeach
                                 </span>
                                 <span>{{ number_format($cart->preDiscount() - $cart->postDiscount(),2) }}€</span>
@@ -208,7 +225,7 @@
                                 <span>{{ number_format($cart->postDiscount(),2) }}€</span>
                             </div>
 
-                            <a href="../shopping_cart_and_order_pages/delivery_address_page.html" class="btn checkout-pill w-100 mt-3">Proceed to checkout</a>
+                            <a href="{{ route('checkout.address') }}" class="btn checkout-pill w-100 mt-3">Proceed to checkout</a>
                         </aside>
                     </div>
                 </div>

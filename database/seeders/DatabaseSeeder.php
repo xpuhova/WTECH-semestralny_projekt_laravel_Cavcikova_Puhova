@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\DeliveryOption;
+use App\Models\PaymentOption;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Tag;
@@ -641,6 +643,14 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $colorTags['White']->id,
         ]);
 
+        DeliveryOption::create(['name' => 'Economy Delivery', 'description' => '5–7 business days', 'price' => 0.00]);
+        DeliveryOption::create(['name' => 'Standard Delivery', 'description' => '2–4 business days', 'price' => 3.99]);
+        DeliveryOption::create(['name' => 'Express Delivery', 'description' => '1–2 business days', 'price' => 7.99]);
+        DeliveryOption::create(['name' => 'Pickup Point', 'description' => '1–2 business days', 'price' => 0.00]);
 
+        PaymentOption::create(['name' => 'Credit / Debit Card', 'description' => 'Visa, Mastercard']);
+        PaymentOption::create(['name' => 'PayPal', 'description' => 'Pay securely with your PayPal account']);
+        PaymentOption::create(['name' => 'Cash on Delivery', 'description' => 'Pay when your order arrives']);
+        PaymentOption::create(['name' => 'Bank Transfer', 'description' => 'Send payment directly from your bank']);
     }
 }

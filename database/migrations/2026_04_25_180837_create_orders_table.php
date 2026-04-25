@@ -16,9 +16,9 @@ return new class extends Migration
 
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
 
-            //$table->foreignId('payment_method_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('payment_option_id')->constrained()->cascadeOnDelete();
 
-            //$table->foreignId('delivery_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('delivery_option_id')->constrained()->cascadeOnDelete();
 
             $table->decimal('total_price', 10, 2);
 

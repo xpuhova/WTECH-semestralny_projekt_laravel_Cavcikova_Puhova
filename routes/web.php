@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,14 @@ Route::post('/cart/update', [CartController::class, 'update'])->name('cart.updat
 Route::post('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+
+Route::post('/checkout/storeAddress', [CheckoutController::class, 'storeAddress'])->name('checkout.storeAddress');
+
+Route::get('/checkout/address', [CheckoutController::class, 'address'])->name('checkout.address');
+
+Route::get('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
+
+Route::post('/checkout/makeOrder', [CheckoutController::class, 'makeOrder'])->name('checkout.makeOrder');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
