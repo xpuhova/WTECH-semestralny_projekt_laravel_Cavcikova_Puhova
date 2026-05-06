@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -38,8 +39,6 @@ Route::get('/login', function () {
     return view('pages.auth.login');
 })->name('login');
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
-
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
@@ -58,3 +57,4 @@ Route::post('/checkout/makeOrder', [CheckoutController::class, 'makeOrder'])->na
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
+Route::get('/admin', [AdminController::class, 'inventory'])->middleware(['auth', 'admin'])->name('admin.inventory');

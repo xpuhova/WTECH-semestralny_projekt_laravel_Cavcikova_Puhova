@@ -95,7 +95,7 @@
                             <a href="{{ route('register') }}" class="register-link">Register.</a>
                         </p>
 
-                        <form method="POST" action="{{ route('login.store') }}">
+                        <form method="POST" action="/login">
                             @csrf
                             <div class="row g-4">
                                 <div class="col-12">

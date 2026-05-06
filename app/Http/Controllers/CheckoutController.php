@@ -46,6 +46,14 @@ class CheckoutController extends Controller
     public function makeOrder(Request $request){
         $userId = auth()->id();
         $deliveryOption = DeliveryOption::find($request->delivery);
+        $cardPaymentId = PaymentOption::where('name', 'Credit / Debit Card')->first()->id;
+        if ($request->payment == $cardPaymentId) {
+            $request->validate([
+                'card_number' => 'required',
+                'expiration_date' => 'required',
+                'cvc' => 'required',
+            ]);
+        }
         if ($userId == null) {
             $cart = Cart::where('session_token', session()->getId())->first();
         } else {

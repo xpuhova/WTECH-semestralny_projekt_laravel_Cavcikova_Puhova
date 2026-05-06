@@ -9,8 +9,10 @@ use App\Models\PaymentOption;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Tag;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -652,5 +654,13 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
         PaymentOption::create(['name' => 'PayPal', 'description' => 'Pay securely with your PayPal account']);
         PaymentOption::create(['name' => 'Cash on Delivery', 'description' => 'Pay when your order arrives']);
         PaymentOption::create(['name' => 'Bank Transfer', 'description' => 'Send payment directly from your bank']);
+
+        User::create([
+            'first_name' => 'Steve',
+            'last_name' => 'Person',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('password123'),
+            'role' => 'admin'
+        ]);
     }
 }
