@@ -124,22 +124,20 @@
                                                 <div class="row g-3 mt-2">
                                                     <div class="col-lg-6 col-md-6 col-12">
                                                         <label for="cardNumber" class="visually-hidden">Card Number</label>
-                                                        <input type="text" id="cardNumber" class="form-control" placeholder="Card Number" required>
+                                                        <input type="text" name="card_number" id="cardNumber" class="form-control" placeholder="Card Number">
                                                     </div>
                                                     <div class="col-lg-6 col-md-6"></div>
                                                     <div class="col-lg-3 col-md-3 col-6">
                                                         <label for="expirationDate" class="visually-hidden">Expiration Date</label>
-                                                        <input type="text" id="expirationDate" class="form-control" placeholder="Expiration Date" required>
+                                                        <input type="text" name="expiration_date" id="expirationDate" class="form-control" placeholder="Expiration Date">
                                                     </div>
                                                     <div class="col-lg-3 col-md-3 col-6">
                                                         <label for="cvc" class="visually-hidden">CVC</label>
-                                                        <input type="text" id="cvc" class="form-control" placeholder="CVC" required>
+                                                        <input type="text" name="cvc" id="cvc" class="form-control" placeholder="CVC">
                                                     </div>
                                                     <div class="col-lg-6 col-md-3"></div>
                                                 </div>
                                             </div>
-                                        @else
-                                            <div class="payment-extra-fields"></div>
                                         @endif
                                     </div>
                                     @endforeach

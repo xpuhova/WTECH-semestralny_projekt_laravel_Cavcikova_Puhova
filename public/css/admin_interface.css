@@ -1,0 +1,51 @@
+.product-number {
+    display: flex;
+
+}
+
+.products-title {
+    font-family: Inter;
+    font-size: 28px;
+}
+
+.product-bar {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.column-title {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 100px 100px;
+    row-gap: 5px;
+    align-items: center;
+}
+
+@media (max-width: 576px)	{
+    #grid {
+        grid-template-columns: 1fr 30px;
+    }
+
+    #grid > :nth-child(5n + 1),
+    #grid > :nth-child(5n + 3),
+    #grid > :nth-child(5n + 4){
+        display: none;
+    }
+}
+
+.img-preview {
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
+}
+
+.input-box {
+    border-radius: 5px;
+    height: 40px;
+    border: 1px solid black;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('street_no')->nullable();
             $table->string('phone_number')->nullable();
+            $table->string('role')->default('customer');
 
             $table->rememberToken();
             $table->timestamps();
