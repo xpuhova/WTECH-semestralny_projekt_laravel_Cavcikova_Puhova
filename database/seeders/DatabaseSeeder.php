@@ -603,6 +603,7 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Women']->id,
             $audienceTags['Kids']->id,
             $colorTags['Gray']->id,
+            $promoTags['Sale']->id
         ]);
 
         $p5->tags()->attach([
@@ -634,6 +635,7 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Kids']->id,
             $colorTags['Gray']->id,
             $colorTags['Yellow']->id,
+            $promoTags['Sale']->id
         ]);
 
         $p9->tags()->attach([
