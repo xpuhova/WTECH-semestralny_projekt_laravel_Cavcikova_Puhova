@@ -57,7 +57,7 @@
                 <span></span>
             @endif
             <div class="d-flex gap-3">
-                <a href="edit_interface.html" class="nav-icon"><i class="ph ph-pencil-line "></i></a>
+                <a href="{{ route('admin.edit', $product->id) }}" class="nav-icon"><i class="ph ph-pencil-line "></i></a>
                 <a href="#" class="nav-icon"><i class="ph ph-trash"></i></a>
             </div>
         @endforeach
