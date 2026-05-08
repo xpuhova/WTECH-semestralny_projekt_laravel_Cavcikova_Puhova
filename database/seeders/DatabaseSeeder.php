@@ -128,7 +128,7 @@ As for the rubber, you will find a 4 mm Vibram XS Edge, while in the women's ver
         ]);
 
         $p3 = Product::create([
-            'name' => 'Black Diamond Vision Airnet Recco harness',
+            'name' => 'BD Black Diamond Vision Airnet Recco harness',
             'color' => 'Envy Green/Black',
             'brand_id' => $blackDiamond->id,
             'category_id' => $harnesses->id,
@@ -145,7 +145,7 @@ As for the rubber, you will find a 4 mm Vibram XS Edge, while in the women's ver
         ]);
 
         $p4 = Product::create([
-            'name' => 'Stan Chalk Bag',
+            'name' => '8b+ 8BPLUS Chalk Bag Stan',
             'color' => 'Light Gray',
             'brand_id' => $eightBPLUS->id,
             'category_id' => $chalk_bags->id,
@@ -229,7 +229,7 @@ The Dry Cover is a waterproof treatment that makes the rope resistant to moistur
         ]);
 
         $p8 = Product::create([
-            'name' => '8b+ 8BPLUS Chalk Bag Phil chalk bag',
+            'name' => '8b+ 8BPLUS Chalk Bag Phil',
             'color' => 'Gray / Yellow',
             'brand_id' => $eightBPLUS->id,
             'category_id' => $chalk_bags->id,

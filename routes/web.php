@@ -21,17 +21,10 @@ Route::get('/profile', function () {
     return view('profile.user_profile');
 })->middleware('auth')->name('profile');
 
-Route::get('/women', [ProductController::class, 'women'])->name('women');
-
-Route::get('/men', [ProductController::class, 'men'])->name('men');
-
-Route::get('/kids', [ProductController::class, 'kids'])->name('kids');
-
 Route::get('/product/{id}', [ProductController::class, 'detail'])->name('detail');
-Route::get('/sale', [ProductController::class, 'sale'])->name('sale');
 
-Route::get('/equipment', [ProductController::class, 'equipment'])->name('equipment');
-
+Route::get('/products/{page}', [ProductController::class, 'categoryPage'])
+    ->name('category_page');
 
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
