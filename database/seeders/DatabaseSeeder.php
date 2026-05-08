@@ -662,7 +662,7 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             'last_name' => 'Person',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password123'),
-            'role' => 'admin'
+            'role' => 'admin',
         ]);
     }
 }
