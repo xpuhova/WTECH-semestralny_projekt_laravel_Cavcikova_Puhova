@@ -84,24 +84,43 @@
                         <hr class="catalog-divider my-4">
                         <form method="POST" action="{{ route('cart.add') }}">
                             @csrf
-                            @if($product->category->name == "Shoes" || $product->category->name == "Clothing")
+                            @php
+                                $sizeOrder = [
+                                    'XXS' => 1,
+                                    'XS' => 2,
+                                    'S' => 3,
+                                    'M' => 4,
+                                    'L' => 5,
+                                    'XL' => 6,
+                                    '6 Years' => 7,
+                                    '8 Years' => 8,
+                                    '10 Years' => 9,
+                                    '12 Years' => 10,
+                                ];
+
+                                $sizeTags = $product->tags
+                                    ->whereIn('type', [
+                                        'adult_shoe_size',
+                                        'adult_clothing_size',
+                                        'kids_clothing_size',
+                                    ])
+                                    ->sortBy(function ($tag) use ($sizeOrder) {
+                                        return $tag->type === 'adult_shoe_size'
+                                            ? (float) $tag->name
+                                            : ($sizeOrder[$tag->name] ?? 999);
+                                    });
+                            @endphp
+
+                            @if($sizeTags->isNotEmpty())
                                 <p class="description-text">SIZE</p>
+
                                 <div class="d-flex flex-wrap gap-2">
-                                    @if($product->category->name == "Shoes")
-                                        @foreach($product->tags->where('type', 'shoe_size') as $tag)
-                                            <label class="size-button">
-                                                <input type="radio" class="btn-check" name="size" value="{{ $tag->name }}" required>
-                                                <span>{{ $tag->name }}</span>
-                                            </label>
-                                        @endforeach
-                                    @elseif($product->category->name == "Clothing")
-                                        @foreach($product->tags->where('type', 'clothing_size') as $tag)
-                                            <label class="size-button">
-                                                <input type="radio" class="btn-check" name="size" value="{{ $tag->name }}" required>
-                                                <span>{{ $tag->name }}</span>
-                                            </label>
-                                        @endforeach
-                                    @endif
+                                    @foreach($sizeTags as $tag)
+                                        <label class="size-button">
+                                            <input type="radio" class="btn-check" name="size" value="{{ $tag->name }}" required>
+                                            <span>{{ $tag->name }}</span>
+                                        </label>
+                                    @endforeach
                                 </div>
                             @endif
                             <div class="d-flex  mt-3">

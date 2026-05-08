@@ -48,6 +48,7 @@ class ProductController extends Controller
 
         if (request()->filled('color')) {
             $colors = request('color');
+
             if (! is_array($colors)) {
                 $colors = [$colors];
             }
@@ -57,25 +58,29 @@ class ProductController extends Controller
             });
         }
 
-        if (request()->filled('size')) {
-            $sizes = request('size');
-            if (! is_array($sizes)) {
-                $sizes = [$sizes];
-            }
-
-            $query->whereHas('tags', function ($q) use ($sizes) {
-                $q->whereIn('name', $sizes);
-            });
-        }
-
         if (request()->filled('brand')) {
             $brands = request('brand');
+
             if (! is_array($brands)) {
                 $brands = [$brands];
             }
 
             $query->whereHas('brand', function ($q) use ($brands) {
                 $q->whereIn('name', $brands);
+            });
+        }
+
+        $sizeProductIds = (clone $query)->pluck('id');
+
+        if (request()->filled('size')) {
+            $sizes = request('size');
+
+            if (! is_array($sizes)) {
+                $sizes = [$sizes];
+            }
+
+            $query->whereHas('tags', function ($q) use ($sizes) {
+                $q->whereIn('name', $sizes);
             });
         }
 
@@ -93,16 +98,33 @@ class ProductController extends Controller
 
         $colorTags = Tag::where('type', 'color')->orderBy('name')->get();
 
-        $shoeSizeTags = Tag::where('type', 'shoe_size')->get()
+        $adultShoeSizeTags = Tag::where('type', 'adult_shoe_size')
+            ->whereHas('products', function ($q) use ($sizeProductIds) {
+                $q->whereIn('products.id', $sizeProductIds);
+            })
+            ->get()
             ->sortBy(function ($tag) {
                 return (float) $tag->name;
             });
 
         $clothingSizeOrder = ['XXS', 'XS', 'S', 'M', 'L', 'XL'];
 
-        $clothingSizeTags = Tag::where('type', 'clothing_size')->get()
+        $adultClothingSizeTags = Tag::where('type', 'adult_clothing_size')
+            ->whereHas('products', function ($q) use ($sizeProductIds) {
+                $q->whereIn('products.id', $sizeProductIds);
+            })
+            ->get()
             ->sortBy(function ($tag) use ($clothingSizeOrder) {
                 return array_search($tag->name, $clothingSizeOrder);
+            });
+
+        $kidsClothingSizeTags = Tag::where('type', 'kids_clothing_size')
+            ->whereHas('products', function ($q) use ($sizeProductIds) {
+                $q->whereIn('products.id', $sizeProductIds);
+            })
+            ->get()
+            ->sortBy(function ($tag) {
+                return (int) $tag->name;
             });
 
         $brands = Brand::orderBy('name')->get();
@@ -111,8 +133,9 @@ class ProductController extends Controller
             'products' => $products,
             'search' => $search,
             'colorTags' => $colorTags,
-            'shoeSizeTags' => $shoeSizeTags,
-            'clothingSizeTags' => $clothingSizeTags,
+            'adultShoeSizeTags' => $adultShoeSizeTags,
+            'adultClothingSizeTags' => $adultClothingSizeTags,
+            'kidsClothingSizeTags' => $kidsClothingSizeTags,
             'brands' => $brands,
         ]);
     }
@@ -249,8 +272,13 @@ class ProductController extends Controller
             'page' => $pageData,
             'products' => $products,
             'colorTags' => Tag::where('type', 'color')->get(),
-            'shoeSizeTags' => Tag::where('type', 'shoe_size')->get(),
-            'clothingSizeTags' => Tag::where('type', 'clothing_size')->get(),
+            'adultShoeSizeTags' => Tag::where('type', 'adult_shoe_size')->get()->sortBy(function ($tag) {
+                return (float) $tag->name;
+            }),
+            'adultClothingSizeTags' => Tag::where('type', 'adult_clothing_size')->get(),
+            'kidsClothingSizeTags' => Tag::where('type', 'kids_clothing_size')->get()->sortBy(function ($tag) {
+                return (int) $tag->name;
+            }),
             'brands' => Brand::all(),
         ]);
     }

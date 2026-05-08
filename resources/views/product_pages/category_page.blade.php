@@ -87,39 +87,10 @@
                             <button class="catalog-pill dropdown-toggle btn" type="button" id="size" data-bs-toggle="dropdown">
                                 Size
                             </button>
+
                             <ul class="dropdown-menu px-3" aria-labelledby="size">
-                                @if(request('category') === 'Shoes')
-                                    @foreach($shoeSizeTags as $sizeTag)
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="size[]"
-                                                    value="{{ $sizeTag->name }}"
-                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
-                                                    onchange="this.form.submit()"
-                                                >
-                                                {{ $sizeTag->name }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-                                @elseif(request('category') === 'Clothing' || request('category') === 'Equipment')
-                                    @foreach($clothingSizeTags as $sizeTag)
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="size[]"
-                                                    value="{{ $sizeTag->name }}"
-                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
-                                                    onchange="this.form.submit()"
-                                                >
-                                                {{ $sizeTag->name }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-                                @else
-                                    @foreach($clothingSizeTags as $sizeTag)
+                                @if($page['slug'] === 'kids')
+                                    @foreach($kidsClothingSizeTags as $sizeTag)
                                         <li>
                                             <label>
                                                 <input
@@ -134,7 +105,58 @@
                                         </li>
                                     @endforeach
 
-                                    @foreach($shoeSizeTags as $sizeTag)
+                                @elseif(request('category') === 'Shoes')
+                                    @foreach($adultShoeSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+
+                                @elseif(request('category') === 'Clothing')
+                                    @foreach($adultClothingSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+
+                                @elseif(request('category') === 'Equipment' || $page['slug'] === 'equipment')
+                                    {{-- Equipment usually has no clothing/shoe sizes, so leave empty or remove this dropdown later. --}}
+
+                                @else
+                                    @foreach($adultClothingSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+
+                                    @foreach($adultShoeSizeTags as $sizeTag)
                                         <li>
                                             <label>
                                                 <input

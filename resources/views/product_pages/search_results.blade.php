@@ -65,7 +65,7 @@
                                 Size
                             </button>
                             <ul class="dropdown-menu px-3" aria-labelledby="size">
-                                @foreach($clothingSizeTags as $sizeTag)
+                                @foreach($adultClothingSizeTags as $sizeTag)
                                     <li>
                                         <label>
                                             <input
@@ -80,7 +80,22 @@
                                     </li>
                                 @endforeach
 
-                                @foreach($shoeSizeTags as $sizeTag)
+                                @foreach($kidsClothingSizeTags as $kidsSizeTag)
+                                    <li>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="size[]"
+                                                value="{{ $kidsSizeTag->name }}"
+                                                {{ in_array($kidsSizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                onchange="this.form.submit()"
+                                            >
+                                            {{ $kidsSizeTag->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
+
+                                @foreach($adultShoeSizeTags as $sizeTag)
                                     <li>
                                         <label>
                                             <input

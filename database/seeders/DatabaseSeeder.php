@@ -62,24 +62,33 @@ class DatabaseSeeder extends Seeder
         });
 
         // Shoe sizes
-        $shoeSizes = collect([
+        $adultShoeSizes = collect([
             '35', '35.5', '36', '36.5', '37', '37.5', '38', '38.5', '39', '39.5',
             '40', '40.5', '41', '41.5', '42', '42.5', '43', '43.5', '44', '44.5',
             '45', '45.5', '46',
         ])->mapWithKeys(function ($name) {
             return [$name => Tag::create([
                 'name' => $name,
-                'type' => 'shoe_size',
+                'type' => 'adult_shoe_size',
             ])];
         });
 
         // Clothing sizes
-        $clothingSizes = collect([
+        $adultClothingSizes = collect([
             'XXS', 'XS', 'S', 'M', 'L', 'XL',
         ])->mapWithKeys(function ($name) {
             return [$name => Tag::create([
                 'name' => $name,
-                'type' => 'clothing_size',
+                'type' => 'adult_clothing_size',
+            ])];
+        });
+
+        $kidsClothingSizes = collect([
+            '6 Years', '8 Years', '10 Years', '12 Years',
+        ])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'kids_clothing_size',
             ])];
         });
 
@@ -552,41 +561,41 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Women']->id,
             $colorTags['Black']->id,
             $colorTags['Yellow']->id,
-            $shoeSizes['35']->id,
-            $shoeSizes['35.5']->id,
-            $shoeSizes['36']->id,
-            $shoeSizes['36.5']->id,
-            $shoeSizes['37']->id,
-            $shoeSizes['37.5']->id,
-            $shoeSizes['38']->id,
-            $shoeSizes['38.5']->id,
-            $shoeSizes['39']->id,
-            $shoeSizes['39.5']->id,
-            $shoeSizes['40']->id,
-            $shoeSizes['40.5']->id,
-            $shoeSizes['41']->id,
-            $shoeSizes['41.5']->id,
-            $shoeSizes['42']->id,
-            $shoeSizes['42.5']->id,
-            $shoeSizes['43']->id,
-            $shoeSizes['43.5']->id,
-            $shoeSizes['44']->id,
-            $shoeSizes['44.5']->id,
-            $shoeSizes['45']->id,
-            $shoeSizes['45.5']->id,
-            $shoeSizes['46']->id,
+            $adultShoeSizes['35']->id,
+            $adultShoeSizes['35.5']->id,
+            $adultShoeSizes['36']->id,
+            $adultShoeSizes['36.5']->id,
+            $adultShoeSizes['37']->id,
+            $adultShoeSizes['37.5']->id,
+            $adultShoeSizes['38']->id,
+            $adultShoeSizes['38.5']->id,
+            $adultShoeSizes['39']->id,
+            $adultShoeSizes['39.5']->id,
+            $adultShoeSizes['40']->id,
+            $adultShoeSizes['40.5']->id,
+            $adultShoeSizes['41']->id,
+            $adultShoeSizes['41.5']->id,
+            $adultShoeSizes['42']->id,
+            $adultShoeSizes['42.5']->id,
+            $adultShoeSizes['43']->id,
+            $adultShoeSizes['43.5']->id,
+            $adultShoeSizes['44']->id,
+            $adultShoeSizes['44.5']->id,
+            $adultShoeSizes['45']->id,
+            $adultShoeSizes['45.5']->id,
+            $adultShoeSizes['46']->id,
             $promoTags['Sale']->id,
         ]);
 
         $p2->tags()->attach([
             $audienceTags['Women']->id,
             $colorTags['Pink']->id,
-            $clothingSizes['XXS']->id,
-            $clothingSizes['XS']->id,
-            $clothingSizes['S']->id,
-            $clothingSizes['M']->id,
-            $clothingSizes['L']->id,
-            $clothingSizes['XL']->id,
+            $adultClothingSizes['XXS']->id,
+            $adultClothingSizes['XS']->id,
+            $adultClothingSizes['S']->id,
+            $adultClothingSizes['M']->id,
+            $adultClothingSizes['L']->id,
+            $adultClothingSizes['XL']->id,
         ]);
 
         $p3->tags()->attach([
@@ -594,10 +603,10 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Women']->id,
             $colorTags['Black']->id,
             $colorTags['Green']->id,
-            $clothingSizes['S']->id,
-            $clothingSizes['M']->id,
-            $clothingSizes['L']->id,
-            $clothingSizes['XL']->id,
+            $adultClothingSizes['S']->id,
+            $adultClothingSizes['M']->id,
+            $adultClothingSizes['L']->id,
+            $adultClothingSizes['XL']->id,
         ]);
 
         $p4->tags()->attach([
@@ -611,8 +620,8 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
         $p5->tags()->attach([
             $audienceTags['Women']->id,
             $colorTags['Blue']->id,
-            $clothingSizes['S']->id,
-            $clothingSizes['M']->id,
+            $adultClothingSizes['S']->id,
+            $adultClothingSizes['M']->id,
         ]);
 
         $p6->tags()->attach([
@@ -625,10 +634,10 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
         $p7->tags()->attach([
             $audienceTags['Women']->id,
             $colorTags['Black']->id,
-            $clothingSizes['XS']->id,
-            $clothingSizes['S']->id,
-            $clothingSizes['M']->id,
-            $clothingSizes['L']->id,
+            $adultClothingSizes['XS']->id,
+            $adultClothingSizes['S']->id,
+            $adultClothingSizes['M']->id,
+            $adultClothingSizes['L']->id,
         ]);
 
         $p8->tags()->attach([
