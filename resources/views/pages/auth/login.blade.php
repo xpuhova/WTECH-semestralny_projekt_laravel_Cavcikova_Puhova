@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -71,9 +71,15 @@
             </div>
         </div>
     </nav>
-</header>
+</header>--}}
+@extends('layouts.app')
 
-<main>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/category_pages.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/register_and_login_pages.css') }}">
+@endpush
+{{--<main>--}}
+@section('content')
     <section class="register-page py-5">
         <div class="container-fluid px-4 px-xl-5">
             <div class="row g-4 align-items-start">
@@ -126,7 +132,9 @@
             </div>
         </div>
     </section>
-</main>
+    @include('partials.trust_strip')
+@endsection
+{{--</main>
 
 <footer class="site-footer mt-5 py-4">
     <div class="container-fluid px-4 px-xl-5">
@@ -146,4 +154,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 </body>
-</html>
+</html>--}}

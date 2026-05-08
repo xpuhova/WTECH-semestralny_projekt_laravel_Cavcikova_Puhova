@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{--<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -74,7 +74,14 @@
     </nav>
 </header>
 
-<main>
+<main>--}}
+@extends('layouts.app')
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/category_pages.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user_profile.css') }}">
+@endpush
+@section('content')
     <section>
         <div class="container-fluid px-4 px-xl-5">
             <div class="row py-5">
@@ -118,7 +125,8 @@
             </div>
         </div>
     </section>
-</main>
+@endsection
+{{--</main>
 
 <footer class="site-footer mt-5 py-4">
     <div class="container-fluid px-4 px-xl-5">
@@ -139,4 +147,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 </body>
-</html>
+</html>--}}

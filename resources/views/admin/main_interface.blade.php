@@ -16,7 +16,7 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container-fluid px-4 px-xl-5 justify-content-between">
-            <a class="navbar-brand logo" href="{{ route('home') }}">GRÏP</a>
+            <a class="navbar-brand logo" href="{{ route('admin.inventory') }}">GRÏP</a>
             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                 @csrf
                 <button type="submit" class="nav-icon fs-5" style="background:none;border:0;">
@@ -32,9 +32,12 @@
         <p class="products-title mb-0">Products</p>
         <p class="mt-0">{{ $products->count() }}</p>
     </div>
-    <a href="#" class="nav-icon fs-5 px-4" aria-label="Search">
-        <i class="ph ph-magnifying-glass"></i>
-    </a>
+    <form method="GET" action="{{ route('admin.inventory') }}" class="navbar-search-form d-flex align-items-center">
+        <input type="text" name="search" class="form-control navbar-search-input" placeholder="Search" value="{{ request('search') }}">
+        <button type="submit" class="nav-icon fs-5 border-0 bg-transparent" aria-label="Search">
+            <i class="ph ph-magnifying-glass"></i>
+        </button>
+    </form>
 </div>
 <div class="px-4 border-bottom py-4">
     <div id="grid">
