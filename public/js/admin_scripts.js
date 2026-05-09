@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label for="new_images[${imageIndex}]" class="btn btn-outline-dark">Remove</label>
                 `;
                 container.appendChild(div);
+                checkImageCount();
             };
             reader.readAsDataURL(file);
 
