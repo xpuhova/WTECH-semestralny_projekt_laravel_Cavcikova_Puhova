@@ -109,6 +109,21 @@
                                         </label>
                                     </li>
                                 @endforeach
+
+                                @foreach($kidsShoeSizeTags as $kidsSizeTag)
+                                    <li>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="size[]"
+                                                value="{{ $kidsSizeTag->name }}"
+                                                {{ in_array($kidsSizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                onchange="this.form.submit()"
+                                            >
+                                            {{ $kidsSizeTag->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
 

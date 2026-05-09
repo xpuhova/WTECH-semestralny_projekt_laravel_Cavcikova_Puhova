@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->enum('type', ['audience', 'adult_shoe_size', 'adult_clothing_size', 'kids_clothing_size', 'color', 'promo']);
+            $table->string('name', 100);
+            $table->enum('type', ['audience', 'adult_shoe_size', 'kids_shoe_size', 'adult_clothing_size', 'kids_clothing_size', 'color', 'promo']);
             $table->timestamps();
         });
     }

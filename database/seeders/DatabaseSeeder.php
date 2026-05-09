@@ -73,6 +73,15 @@ class DatabaseSeeder extends Seeder
             ])];
         });
 
+        $kidsShoesSizes = collect([
+            '33', '34', '35', '36', '37', '38',
+        ])->mapWithKeys(function ($name) {
+            return [$name => Tag::create([
+                'name' => $name,
+                'type' => 'kids_shoe_size',
+            ])];
+        });
+
         // Clothing sizes
         $adultClothingSizes = collect([
             'XXS', 'XS', 'S', 'M', 'L', 'XL',
@@ -84,7 +93,7 @@ class DatabaseSeeder extends Seeder
         });
 
         $kidsClothingSizes = collect([
-            '6 Years', '8 Years', '10 Years', '12 Years',
+            '2 Years', '4 Years', '6 Years', '8 Years', '10 Years', '12 Years',
         ])->mapWithKeys(function ($name) {
             return [$name => Tag::create([
                 'name' => $name,
@@ -99,6 +108,7 @@ class DatabaseSeeder extends Seeder
         $eightBPLUS = Brand::create(['name' => '8b+ 8BPLUS']);
         $beal = Brand::create(['name' => 'Beal']);
         $arcteryx = Brand::create(['name' => "Arc'teryx"]);
+        $patagonia = Brand::create(['name' => 'Patagonia']);
 
         // Products
         $p1 = Product::create([
@@ -272,6 +282,81 @@ A fantastic idea also for an unconventional gift!',
 The ball comes with a mesh cover designed to reduce magnesium waste and is equipped with a closure with a cord and tanka to help you recharge it comfortably.',
             'features_specifications' => 'Format: 65 g
             Chalk Type: Ball',
+        ]);
+
+        $p10 = Product::create([
+            'name' => "E9 Enove B Pentago Peace children's shorts",
+            'color' => 'Vintage Blue',
+            'brand_id' => $e9->id,
+            'category_id' => $clothing->id,
+            'price' => 50.00,
+            'discount_percent' => 10,
+            'brief_description' => "Very comfortable children's climbing shorts perfect for summer",
+            'detailed_description' => 'Durable outdoor and climbing shorts crafted from organic cotton gabardine, designed for active kids who love adventure. Features a printed side pocket for essentials and a dedicated brush holder—perfect for young climbers. The regular fit ensures excellent comfort during movement, while the breathable fabric keeps them cool on the trail. Proudly made in Italy with quality craftsmanship.',
+            'features_specifications' => 'Gender: Unisex
+            Season: Spring-Summer 2026
+            Fit: Regular
+            Material: 98% Cotton, 2% Elastane',
+        ]);
+
+        $p11 = Product::create([
+            'name' => 'Patagonia Baby Furry Friends Hoody technical fleece baby jacket',
+            'color' => 'Night Plum',
+            'brand_id' => $patagonia->id,
+            'category_id' => $clothing->id,
+            'price' => 60.00,
+            'discount_percent' => 0,
+            'brief_description' => 'The ideal garment to protect the little ones on the coldest winter days',
+            'detailed_description' => 'The Baby Furry Friends Hoody is made from high-pile, double-face 100% recycled polyester fleece that’s ultrasoft. The hoody has a three-panel hood with bear cub–style ears for added fun. Soft, cotton-twill tape at the inside neck and zipper pull provide ultimate comfort next to skin. Full zipper at center front with zipper garage for comfort and handwarmer pockets for warmth.',
+            'features_specifications' => 'Gender: Unisex
+            Season: Spring-Summer 2026
+            Material: 100% Recycled Polyester
+            Weight: 207 g',
+        ]);
+
+        $p12 = Product::create([
+            'name' => "Patagonia Baby Furry Friends Hat children's hat",
+            'color' => 'Mallow Pink',
+            'brand_id' => $patagonia->id,
+            'category_id' => $clothing->id,
+            'price' => 30.00,
+            'discount_percent' => 20,
+            'brief_description' => 'An adorable hat perfect for winter walks and any outdoor moment',
+            'detailed_description' => 'The Baby Furry Friends Fleece Hat by Patagonia is a fleece hat designed to protect children during cold days, perfect for winter walks and any outdoor moment. This adorable hat, with its cute bear ears, is made from soft and thick double-sided fleece weighing 292 g/m² of 100% recycled polyester, a material that offers exceptional warmth and incredible softness against the delicate skin of children. The double fabric band ensures optimal comfort and extra warmth, wrapping the head without being tight. In addition to its irresistible design, this hat represents an ethical and sustainable choice, being produced in a Fair Trade Certified™ facility, ensuring fair treatment for the workers who made it.',
+            'features_specifications' => 'Gender: Unisex
+            Season: Fall-Winter 2026
+            Material: 100% Recycled Polyester
+            Weight: 292 g',
+        ]);
+
+        $p13 = Product::create([
+            'name' => "E9 Enove B-Wild children's t-shirt",
+            'color' => 'Greenapple',
+            'brand_id' => $e9->id,
+            'category_id' => $clothing->id,
+            'price' => 38.00,
+            'discount_percent' => 11,
+            'brief_description' => "A children's t-shirt designed for little adventurers who love the outdoors",
+            'detailed_description' => "The B-Wild by E9 is a children's t-shirt designed for little adventurers who love the outdoors. Made from lightweight 100% organic cotton jersey, it ensures natural breathability and prolonged comfort on the skin during play and sports activities. The design features an original front print themed Into the Wild, which reflects the free spirit of the brand, and a regular fit that accommodates every movement. Thanks to the durability of the organic fibers and the attention to detail in the finishes, the B-Wild proves to be a resilient and versatile garment for everyday use and leisure time in nature.",
+            'features_specifications' => 'Gender: Unisex
+            Season: Spring-Summer 2026
+            Material: Cotton',
+        ]);
+
+        $p14 = Product::create([
+            'name' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'color' => 'Grey (Pewter)',
+            'brand_id' => $blackDiamond->id,
+            'category_id' => $shoes->id,
+            'price' => 75.00,
+            'discount_percent' => 15,
+            'brief_description' => 'Designed to provide the perfect balance between comfort and high performance for growing young climbers',
+            'detailed_description' => "The Big Kids' Momentum shoe from Black Diamond is a climbing shoe for children and young people designed to provide the perfect balance between comfort and high performance for growing young climbers. Thanks to its flat and neutral shape, this shoe ensures lasting comfort throughout the day, making it ideal for long sessions in the gym or for first climbs at the crag. The model is built on a specific last for kids aged 7 to 12 years, ensuring a precise and customized fit that follows the development of the foot. The Black Label rubber sole is molded to offer maximum durability and reduced weight, ensuring consistent grip on all types of walls. The breathable mesh fabric tongue allows for excellent ventilation, while the microfiber midsole increases sensitivity and comfort during foot placement. The closure with a practical Velcro strap allows for easy adjustment of the fit and for putting on or taking off the shoes independently. The Big Kids' Momentum represents the ideal solution for young athletes looking for a technical yet comfortable shoe that can support their climbing progress without sacrificing ease of use and breathability.",
+            'features_specifications' => 'Climbing Shoe Use: Boulder, Crag, Gym
+            Climbing Shoe Sole Type: Full Sole
+            Shoe Downturn: Comfortable
+            Upper Material: Knitted Fabric
+            Sole Material: BlackLabel Fuse',
         ]);
 
         // Images
@@ -555,6 +640,90 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             'sort_order' => 3,
         ]);
 
+        ProductImage::create([
+            'product_id' => $p10->id,
+            'image_url' => 'images/E9_b_pentago_peace_vintageblue.jpg',
+            'alt_text' => "E9 Enove B Pentago Peace children's shorts",
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p11->id,
+            'image_url' => 'images/patagonia_furry_jacket.jpg',
+            'alt_text' => 'Patagonia Baby Furry Friends Hoody technical fleece baby jacket',
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p12->id,
+            'image_url' => 'images/patagonia-baby-furry-friends-hat-mallow-pink.jpg',
+            'alt_text' => "Patagonia Baby Furry Friends Hat children's hat",
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p13->id,
+            'image_url' => 'images/E9_b_greenapple.jpg',
+            'alt_text' => "E9 Enove B-Wild children's t-shirt",
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p13->id,
+            'image_url' => 'images/E9_b_greenapple1.jpg',
+            'alt_text' => "E9 Enove B-Wild children's t-shirt",
+            'sort_order' => 2,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/J_Momentum_Climbing_ShoesPewter.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/j_Momentum_Climbing_ShoesPewter2.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 2,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/j_Momentum_Climbing_ShoesPewter3.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 3,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/j_Momentum_Climbing_ShoesPewter4.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 4,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/j_Momentum_Climbing_ShoesPewter5.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 5,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/j_Momentum_Climbing_ShoesPewter6.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 6,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p14->id,
+            'image_url' => 'images/j_Momentum_Climbing_ShoesPewter7.jpg',
+            'alt_text' => "BD Black Diamond J Momentum Climbing Shoes children's climbing shoes",
+            'sort_order' => 7,
+        ]);
+
         // Product tags
         $p1->tags()->attach([
             $audienceTags['Men']->id,
@@ -614,7 +783,7 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Women']->id,
             $audienceTags['Kids']->id,
             $colorTags['Gray']->id,
-            $promoTags['Sale']->id
+            $promoTags['Sale']->id,
         ]);
 
         $p5->tags()->attach([
@@ -646,7 +815,7 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Kids']->id,
             $colorTags['Gray']->id,
             $colorTags['Yellow']->id,
-            $promoTags['Sale']->id
+            $promoTags['Sale']->id,
         ]);
 
         $p9->tags()->attach([
@@ -654,6 +823,51 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $audienceTags['Women']->id,
             $audienceTags['Kids']->id,
             $colorTags['White']->id,
+        ]);
+
+        $p10->tags()->attach([
+            $audienceTags['Kids']->id,
+            $colorTags['Blue']->id,
+            $kidsClothingSizes['2 Years']->id,
+            $kidsClothingSizes['4 Years']->id,
+            $kidsClothingSizes['6 Years']->id,
+            $kidsClothingSizes['8 Years']->id,
+            $kidsClothingSizes['10 Years']->id,
+            $kidsClothingSizes['12 Years']->id,
+            $promoTags['Sale']->id,
+        ]);
+
+        $p11->tags()->attach([
+            $audienceTags['Kids']->id,
+            $colorTags['Purple']->id,
+            $kidsClothingSizes['2 Years']->id,
+            $kidsClothingSizes['4 Years']->id,
+            $kidsClothingSizes['6 Years']->id,
+        ]);
+
+        $p12->tags()->attach([
+            $audienceTags['Kids']->id,
+            $colorTags['Pink']->id,
+            $promoTags['Sale']->id,
+        ]);
+
+        $p13->tags()->attach([
+            $audienceTags['Kids']->id,
+            $colorTags['Green']->id,
+            $kidsClothingSizes['10 Years']->id,
+            $kidsClothingSizes['12 Years']->id,
+        ]);
+
+        $p14->tags()->attach([
+            $audienceTags['Kids']->id,
+            $colorTags['Gray']->id,
+            $kidsShoesSizes['33']->id,
+            $kidsShoesSizes['34']->id,
+            $kidsShoesSizes['35']->id,
+            $kidsShoesSizes['36']->id,
+            $kidsShoesSizes['37']->id,
+            $kidsShoesSizes['38']->id,
+            $promoTags['Sale']->id,
         ]);
 
         DeliveryOption::create(['name' => 'Economy Delivery', 'description' => '5–7 business days', 'price' => 0.00]);

@@ -105,6 +105,21 @@
                                         </li>
                                     @endforeach
 
+                                    @foreach($kidsShoeSizeTags as $sizeTag)
+                                        <li>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="size[]"
+                                                    value="{{ $sizeTag->name }}"
+                                                    {{ in_array($sizeTag->name, request()->input('size', [])) ? 'checked' : '' }}
+                                                    onchange="this.form.submit()"
+                                                >
+                                                {{ $sizeTag->name }}
+                                            </label>
+                                        </li>
+                                    @endforeach
+
                                 @elseif(request('category') === 'Shoes')
                                     @foreach($adultShoeSizeTags as $sizeTag)
                                         <li>
@@ -136,9 +151,6 @@
                                             </label>
                                         </li>
                                     @endforeach
-
-                                @elseif(request('category') === 'Equipment' || $page['slug'] === 'equipment')
-                                    {{-- Equipment usually has no clothing/shoe sizes, so leave empty or remove this dropdown later. --}}
 
                                 @else
                                     @foreach($adultClothingSizeTags as $sizeTag)
@@ -204,7 +216,8 @@
                             style="background-color: #e0e0e0; color: black;"
                         >
                             Clear Filters
-                        </a>                    </div>
+                        </a>
+                    </div>
 
 
                     <div class="d-flex flex-wrap">
