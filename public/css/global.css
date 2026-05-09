@@ -122,6 +122,20 @@ body {
     border-color: #222;
 }
 
+.checkout-pill:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    border-color: #e0e0e0;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.checkout-pill:disabled:hover {
+    background-color: #e0e0e0;
+    color: #999;
+    border-color: #e0e0e0;
+}
+
 .old-price {
     text-decoration: line-through;
     color: black;

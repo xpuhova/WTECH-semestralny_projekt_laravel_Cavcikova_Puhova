@@ -53,3 +53,5 @@ Route::get('/search', [ProductController::class, 'search'])->name('search');
 Route::get('/admin', [AdminController::class, 'inventory'])->middleware(['auth', 'admin'])->name('admin.inventory');
 
 Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.edit');
+
+Route::put('/admin/edit/{product}', [AdminController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.update');
