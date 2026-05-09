@@ -107,6 +107,11 @@ class ProductController extends Controller
                 return (float) $tag->name;
             });
 
+        $kidsShoeSizeTags = Tag::where('type', 'kids_shoe_size')->get()
+            ->sortBy(function ($tag) {
+                return (float) $tag->name;
+            });
+
         $clothingSizeOrder = ['XXS', 'XS', 'S', 'M', 'L', 'XL'];
 
         $adultClothingSizeTags = Tag::where('type', 'adult_clothing_size')
@@ -134,6 +139,7 @@ class ProductController extends Controller
             'search' => $search,
             'colorTags' => $colorTags,
             'adultShoeSizeTags' => $adultShoeSizeTags,
+            'kidsShoeSizeTags' => $kidsShoeSizeTags,
             'adultClothingSizeTags' => $adultClothingSizeTags,
             'kidsClothingSizeTags' => $kidsClothingSizeTags,
             'brands' => $brands,
@@ -278,6 +284,9 @@ class ProductController extends Controller
             'adultClothingSizeTags' => Tag::where('type', 'adult_clothing_size')->get(),
             'kidsClothingSizeTags' => Tag::where('type', 'kids_clothing_size')->get()->sortBy(function ($tag) {
                 return (int) $tag->name;
+            }),
+            'kidsShoeSizeTags' => Tag::where('type', 'kids_shoe_size')->get()->sortBy(function ($tag) {
+                return (float) $tag->name;
             }),
             'brands' => Brand::all(),
         ]);

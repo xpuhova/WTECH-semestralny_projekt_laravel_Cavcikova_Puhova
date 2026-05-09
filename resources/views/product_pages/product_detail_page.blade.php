@@ -34,8 +34,8 @@
                     <div class="d-sm-none d-flex justify-content-center">
                         <div id="productPictures" class="carousel carousel-dark slide px-5" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                @foreach($product->images->sortBy('sort_order') as $image)
-                                    <div class="carousel-item active">
+                                @foreach($product->images->sortBy('sort_order')->values() as $index => $image)
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                         <img src="{{ asset($image->image_url ?? 'images/placeholder.jpg') }}"
                                              class="alternative-product-img"
                                              alt="{{ $image->alt_text ?? $product->name }}">
