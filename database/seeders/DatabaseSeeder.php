@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
         });
 
         $kidsShoesSizes = collect([
-            '33', '34', '35', '36', '37', '38',
+            '29', '30', '31', '32', '33', '34', '35', '36', '37', '38',
         ])->mapWithKeys(function ($name) {
             return [$name => Tag::create([
                 'name' => $name,
@@ -109,6 +109,7 @@ class DatabaseSeeder extends Seeder
         $beal = Brand::create(['name' => 'Beal']);
         $arcteryx = Brand::create(['name' => "Arc'teryx"]);
         $patagonia = Brand::create(['name' => 'Patagonia']);
+        $hellyHansen = Brand::create(['name' => 'Helly Hansen']);
 
         // Products
         $p1 = Product::create([
@@ -249,7 +250,7 @@ The Dry Cover is a waterproof treatment that makes the rope resistant to moistur
 
         $p8 = Product::create([
             'name' => '8b+ 8BPLUS Chalk Bag Phil',
-            'color' => 'Gray / Yellow',
+            'color' => 'Gray/Yellow',
             'brand_id' => $eightBPLUS->id,
             'category_id' => $chalk_bags->id,
             'price' => 30.35,
@@ -357,6 +358,56 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             Shoe Downturn: Comfortable
             Upper Material: Knitted Fabric
             Sole Material: BlackLabel Fuse',
+        ]);
+
+        $p15 = Product::create([
+            'name' => 'La Sportiva Solution Comp JR climbing shoes for kids',
+            'color' => 'Yellow/Black',
+            'brand_id' => $laSportiva->id,
+            'category_id' => $shoes->id,
+            'price' => 120.00,
+            'discount_percent' => 10,
+            'brief_description' => 'Designed for children and young athletes to offer precision and high performance both in training and competition',
+            'detailed_description' => 'The Solution Comp JR by La Sportiva is a climbing shoe for children and young athletes, designed to offer precision and high performance both in training and competition through a low-tension structure. Specifically developed for lightweight climbers with a recommended maximum weight of 50 kg, this shoe supports the foot muscles without limiting their natural growth thanks to the use of soft and comfortable materials. The unlined microfiber upper is paired with the Microbase SkinLike™ insole, ensuring a snug fit that can be quickly adjusted via the patented Fast Lacing System™. The half sole in Vibram® XS GRIP 2 features a differentiated thickness from 3.5 to 1.8 mm to ensure unparalleled grip and precision, while the construction is shorter than traditional models to facilitate smearing and technical movements. The P3® (Permanent Power Platform) technology allows the shoe to maintain its shape and tension over time, improving power transmission to the toe. Fully made in Italy, the Solution Comp JR is a vegan and practical model, as it can be conveniently washed in a washing machine at 30°C.',
+            'features_specifications' => 'Closing System: Velcro
+            Climbing Shoe Use: Boulder, Crag, Gym
+            Climbing Shoe Sole Type: Half Sole
+            Climbing Shoe Technology: P3
+            Shoe Downturn: Aggressive
+            Upper Material: Microfiber
+            Sole Material: Vibram XS Grip²
+            Climbing Shoe Stiffness: Medium
+            Climbing Shoe Sole Width: Regular',
+        ]);
+
+        $p16 = Product::create([
+            'name' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'color' => 'Spotlight',
+            'brand_id' => $arcteryx->id,
+            'category_id' => $clothing->id,
+            'price' => 400.00,
+            'discount_percent' => 0,
+            'brief_description' => 'Designed to provide lasting protection against rain and wind during hiking and high-altitude outdoor activities',
+            'detailed_description' => "The Beta jacket from Arc'teryx is an extremely versatile men's Gore-Tex shell, designed to provide lasting protection against rain and wind during hiking and high-altitude outdoor activities. Made with a robust 80-denier outer fabric and the innovative Gore-Tex ePE (expanded polyethylene) membrane, this jacket is lightweight, durable, and PFC-free, ensuring waterproof and breathable performance with a reduced environmental impact. The Gore C-Knit™ technology on the reverse makes the garment soft, quiet, and comfortable against the skin or over other layers, while the regular fit and articulated structure ensure total freedom of movement without restrictions. The slim-profile StormHood™ is easily adjustable with a single drawcord to provide full coverage without limiting the field of vision, complemented by a WaterTight™ Vislon front zipper with a chin guard. For added safety in mountain environments, the garment integrates a RECCO® reflector that facilitates rescue operations in case of emergency. The functional features include two large hand pockets, a laminated internal zip pocket for valuables, and an adjustable hem with dual adjusters to seal in warmth. Weighing only 375 grams, the Beta Jacket is made with bluesign approved materials and recycled components, confirming it as the ideal shell for those seeking technical reliability and sustainability in one product.",
+            'features_specifications' => 'Weight: 375 g
+            Fit: Regular
+            Goretex: Yes
+            Season: Spring-Summer 2026
+            Material: Nylon',
+        ]);
+
+        $p17 = Product::create([
+            'name' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'color' => 'Light Lav',
+            'brand_id' => $hellyHansen->id,
+            'category_id' => $clothing->id,
+            'price' => 110.00,
+            'discount_percent' => 30,
+            'brief_description' => "Lightweight yet sturdy men's pants, ideal for hiking, camping, traveling, and cycling in various conditions",
+            'detailed_description' => 'The Vinda Light Tur Pants for men, lightweight yet sturdy, are ideal for hiking, camping, traveling, and cycling in various conditions. With UPF 50 sun protection and quick-drying stretch fabric, they offer comfort and protection in dry and warm climates. The pants feature a tapered leg, pre-shaped knees, and reinforcement for greater freedom of movement, along with a comfortable elastic waistband, belt loops, and two zippered pockets to securely store items.',
+            'features_specifications' => 'Season: Spring-Summer 2025
+            Fit: Slim
+            Material: 94% Polyamide, 6% Elastan',
         ]);
 
         // Images
@@ -724,6 +775,125 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             'sort_order' => 7,
         ]);
 
+        ProductImage::create([
+            'product_id' => $p15->id,
+            'image_url' => 'images/Solution_Comp_JRYellowBlack_1.jpg',
+            'alt_text' => 'La Sportiva Solution Comp JR climbing shoes for kids',
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p15->id,
+            'image_url' => 'images/solution_comp_jryellowblack_1_.jpg',
+            'alt_text' => 'La Sportiva Solution Comp JR climbing shoes for kids',
+            'sort_order' => 2,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p15->id,
+            'image_url' => 'images/solution_comp_jryellowblack_2_.jpg',
+            'alt_text' => 'La Sportiva Solution Comp JR climbing shoes for kids',
+            'sort_order' => 3,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/Beta_Jacket_M_Spotlight_1.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_2_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 2,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_1_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 3,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_3_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 4,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_4_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 5,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_5_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 6,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_6_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 7,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p16->id,
+            'image_url' => 'images/beta_jacket_m_spotlight_7_.jpg',
+            'alt_text' => "Arc'teryx Beta Jacket M men's hard shell jacket",
+            'sort_order' => 8,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p17->id,
+            'image_url' => 'images/Helly-Hansen-Vinda-Light-Tur-Pant.jpg',
+            'alt_text' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'sort_order' => 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p17->id,
+            'image_url' => 'images/Helly-Hansen-Vinda-Light-Tur-Pant1.jpg',
+            'alt_text' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'sort_order' => 2,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p17->id,
+            'image_url' => 'images/Helly-Hansen-Vinda-Light-Tur-Pant2.jpg',
+            'alt_text' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'sort_order' => 3,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p17->id,
+            'image_url' => 'images/Helly-Hansen-Vinda-Light-Tur-Pant3.jpg',
+            'alt_text' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'sort_order' => 4,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p17->id,
+            'image_url' => 'images/Helly-Hansen-Vinda-Light-Tur-Pant4.jpg',
+            'alt_text' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'sort_order' => 5,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $p17->id,
+            'image_url' => 'images/Helly-Hansen-Vinda-Light-Tur-Pant5.jpg',
+            'alt_text' => "Helly Hansen Vinda Light Tur Pant men's pants",
+            'sort_order' => 6,
+        ]);
+
         // Product tags
         $p1->tags()->attach([
             $audienceTags['Men']->id,
@@ -867,6 +1037,42 @@ The ball comes with a mesh cover designed to reduce magnesium waste and is equip
             $kidsShoesSizes['36']->id,
             $kidsShoesSizes['37']->id,
             $kidsShoesSizes['38']->id,
+            $promoTags['Sale']->id,
+        ]);
+
+        $p15->tags()->attach([
+            $audienceTags['Kids']->id,
+            $colorTags['Black']->id,
+            $colorTags['Yellow']->id,
+            $kidsShoesSizes['29']->id,
+            $kidsShoesSizes['30']->id,
+            $kidsShoesSizes['31']->id,
+            $kidsShoesSizes['32']->id,
+            $kidsShoesSizes['33']->id,
+            $kidsShoesSizes['34']->id,
+            $kidsShoesSizes['35']->id,
+            $kidsShoesSizes['36']->id,
+            $kidsShoesSizes['37']->id,
+            $kidsShoesSizes['38']->id,
+            $promoTags['Sale']->id,
+        ]);
+
+        $p16->tags()->attach([
+            $audienceTags['Men']->id,
+            $colorTags['Black']->id,
+            $colorTags['Green']->id,
+            $adultClothingSizes['S']->id,
+            $adultClothingSizes['M']->id,
+            $adultClothingSizes['L']->id,
+        ]);
+
+        $p17->tags()->attach([
+            $audienceTags['Men']->id,
+            $colorTags['Beige']->id,
+            $adultClothingSizes['S']->id,
+            $adultClothingSizes['M']->id,
+            $adultClothingSizes['L']->id,
+            $adultClothingSizes['XL']->id,
             $promoTags['Sale']->id,
         ]);
 
