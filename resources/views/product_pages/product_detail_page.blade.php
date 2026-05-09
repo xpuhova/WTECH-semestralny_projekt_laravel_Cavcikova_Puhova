@@ -101,6 +101,7 @@
                                 $sizeTags = $product->tags
                                     ->whereIn('type', [
                                         'adult_shoe_size',
+                                        'kids_shoe_size',
                                         'adult_clothing_size',
                                         'kids_clothing_size',
                                     ])

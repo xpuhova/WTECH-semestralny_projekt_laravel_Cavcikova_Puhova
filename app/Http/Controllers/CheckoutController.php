@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\DeliveryOption;
-use App\Models\PaymentOption;
-use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PaymentOption;
+use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
@@ -26,6 +26,7 @@ class CheckoutController extends Controller
     public function storeAddress(Request $request)
     {
         session(['checkout.address' => $request->only('first_name', 'last_name', 'country', 'postcode', 'city', 'street', 'street_number', 'email', 'phone')]);
+
         return redirect()->route('checkout.payment');
     }
 
@@ -43,15 +44,32 @@ class CheckoutController extends Controller
         return view('shopping_cart_and_order_pages.payment_and_delivery_page', compact('cart', 'paymentOptions', 'deliveryOptions'));
     }
 
-    public function makeOrder(Request $request){
+    public function makeOrder(Request $request)
+    {
         $userId = auth()->id();
         $deliveryOption = DeliveryOption::find($request->delivery);
         $cardPaymentId = PaymentOption::where('name', 'Credit / Debit Card')->first()->id;
         if ($request->payment == $cardPaymentId) {
             $request->validate([
-                'card_number' => 'required',
-                'expiration_date' => 'required',
-                'cvc' => 'required',
+                'card_number' => [
+                    'required',
+                    'regex:/^[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}$/',
+                ],
+                'expiration_date' => [
+                    'required',
+                    'regex:/^(0[1-9]|1[0-2])\/[0-9]{2}$/',
+                ],
+                'cvc' => [
+                    'required',
+                    'regex:/^[0-9]{3}$/',
+                ],
+            ], [
+                'card_number.required' => 'Please enter a credit/debit card number',
+                'card_number.regex' => 'Please enter a valid credit/debit card number',
+                'expiration_date.required' => 'Please enter a valid expiration date',
+                'expiration_date.regex' => 'Please enter a valid expiration date',
+                'cvc.required' => 'Please enter a CVC',
+                'cvc.regex' => 'Please enter a valid CVC',
             ]);
         }
         if ($userId == null) {
@@ -79,6 +97,7 @@ class CheckoutController extends Controller
         }
 
         $cart->delete();
+
         return redirect()->route('home');
 
     }

@@ -20,7 +20,7 @@
                             <div class="checkout-option-list">
                                 @foreach($deliveryOptions as $deliveryOption)
                                     <label class="checkout-option">
-                                        <input type="radio" name="delivery" class="form-check-input checkout-radio" data-price="{{ $deliveryOption->price }}" onchange="updateShippingCost()" value="{{ $deliveryOption->id }}" required>
+                                        <input type="radio" name="delivery" class="form-check-input checkout-radio" data-price="{{ $deliveryOption->price }}" onchange="updateShippingCost()" value="{{ $deliveryOption->id }}" {{ old('delivery') == $deliveryOption->id ? 'checked' : '' }} required>
                                         <span class="checkout-option-content">
                                             <span class="checkout-option-text-wrap">
                                                 <span class="checkout-option-title">{{ $deliveryOption->name }}</span>
@@ -39,7 +39,7 @@
                             <div class="checkout-option-list">
                                     @foreach($paymentOptions as $paymentOption)
                                     <div class="payment-option">
-                                        <input type="radio" name="payment" id="payment_{{ $paymentOption->id }}" class="form-check-input checkout-radio" value="{{ $paymentOption->id }}" required>
+                                        <input type="radio" name="payment" id="payment_{{ $paymentOption->id }}" class="form-check-input checkout-radio" value="{{ $paymentOption->id }}" {{ old('payment') == $paymentOption->id ? 'checked' : '' }} required>
                                         <label for="payment_{{ $paymentOption->id }}" class="checkout-option">
                                             <span class="checkout-option-content">
                                                 <span class="checkout-option-text-wrap">
@@ -50,20 +50,29 @@
                                         </label>
 
                                         @if($paymentOption->name == "Credit / Debit Card")
-                                            <div class="payment-extra-fields">
+                                            <div class="payment-extra-fields {{ $errors->has('card_number') || $errors->has('expiration_date') || $errors->has('cvc') ? 'd-block' : '' }}">
                                                 <div class="row g-3 mt-2">
                                                     <div class="col-lg-6 col-md-6 col-12">
                                                         <label for="cardNumber" class="visually-hidden">Card Number</label>
-                                                        <input type="text" name="card_number" id="cardNumber" class="form-control" placeholder="Card Number">
+                                                        <input type="text" name="card_number" id="cardNumber" value="{{ old('card_number') }}" maxlength="19" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" class="form-control" placeholder="Card Number">
+                                                        @error('card_number')
+                                                        <p class="text-danger mt-1 mb-0">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-lg-6 col-md-6"></div>
                                                     <div class="col-lg-3 col-md-3 col-6">
                                                         <label for="expirationDate" class="visually-hidden">Expiration Date</label>
-                                                        <input type="text" name="expiration_date" id="expirationDate" class="form-control" placeholder="Expiration Date">
+                                                        <input type="text" name="expiration_date" id="expirationDate" value="{{ old('expiration_date') }}" maxlength="5" pattern="[0-9]{2}/[0-9]{2}" class="form-control" placeholder="Expiration Date">
+                                                        @error('expiration_date')
+                                                        <p class="text-danger mt-1 mb-0">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-lg-3 col-md-3 col-6">
                                                         <label for="cvc" class="visually-hidden">CVC</label>
-                                                        <input type="text" name="cvc" id="cvc" class="form-control" placeholder="CVC">
+                                                        <input type="text" name="cvc" id="cvc" value="{{ old('cvc') }}" maxlength="3" pattern="[0-9]{3}" class="form-control" placeholder="CVC">
+                                                        @error('cvc')
+                                                        <p class="text-danger mt-1 mb-0">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-lg-6 col-md-3"></div>
                                                 </div>
@@ -119,3 +128,39 @@
 
     @include('partials.trust_strip')
 @endsection
+
+@push('scripts')
+    <script>
+        const cardInput = document.getElementById('cardNumber');
+
+        if (cardInput) {
+            cardInput.addEventListener('input', function () {
+                let value = this.value.replace(/\D/g, '');
+                value = value.substring(0, 16);
+                this.value = value.replace(/(.{4})/g, '$1 ').trim();
+            });
+        }
+    </script>
+
+    <script>
+        const expirationDate = document.getElementById('expirationDate');
+
+        if (expirationDate) {
+            expirationDate.addEventListener('input', function () {
+                let value = this.value.replace(/\D/g, '');
+                value = value.substring(0, 4);
+                this.value = value.replace(/(.{2})/g, '$1/').replace(/\/$/, '');
+            });
+        }
+    </script>
+
+    <script>
+        const cvc = document.getElementById('cvc');
+
+        if (cvc) {
+            cvc.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '');
+            });
+        }
+    </script>
+@endpush
