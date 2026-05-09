@@ -58,13 +58,17 @@
             @endif
             <div class="d-flex gap-3">
                 <a href="{{ route('admin.edit', $product->id) }}" class="nav-icon"><i class="ph ph-pencil-line "></i></a>
-                <a href="#" class="nav-icon"><i class="ph ph-trash"></i></a>
+                <form method="POST" action="{{ route('admin.delete', $product->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="nav-icon border-0 bg-transparent"><i class="ph ph-trash"></i></button>
+                </form>
             </div>
         @endforeach
     </div>
 </div>
 <div class="d-flex py-4 justify-content-center">
-    <a href="add_interface.html" class="nav-icon" style="font-size: 36px;"><i class="ph ph-plus-circle"></i></a>
+    <a href="{{ route('admin.new')}}" class="nav-icon" style="font-size: 36px;"><i class="ph ph-plus-circle"></i></a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

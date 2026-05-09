@@ -55,3 +55,9 @@ Route::get('/admin', [AdminController::class, 'inventory'])->middleware(['auth',
 Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.edit');
 
 Route::put('/admin/edit/{product}', [AdminController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.update');
+
+Route::get('/admin/new', [AdminController::class, 'new'])->middleware(['auth', 'admin'])->name('admin.new');
+
+Route::post('/admin/new', [AdminController::class, 'add'])->middleware(['auth', 'admin'])->name('admin.add');
+
+Route::delete('/admin/delete/{id}', [AdminController::class, 'delete'])->middleware(['auth', 'admin'])->name('admin.delete');
