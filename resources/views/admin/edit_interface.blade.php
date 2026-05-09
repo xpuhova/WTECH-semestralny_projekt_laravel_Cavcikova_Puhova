@@ -61,14 +61,26 @@
     </div>
     <div class="col-12 px-5 mb-3">
         <label for="images" class="form-label">Product Images</label>
-        <input type="file" id="images" class="form-control" accept="image/*" multiple>
+        <div id="image-container" class="col-12 d-flex flex-wrap gap-4">
+            @foreach($product->images->sortBy('sort_order') as $image)
+                <div class="image-item flex-column d-flex gap-2" data-id="{{ $image->id }}">
+                    <img src="{{ asset($image->image_url ?? 'images/placeholder.jpg') }}" class="img-manage">
+
+                    <input type="text" name="existing_images[{{ $image->id }}][alt_text]" class="form-control" value="{{ $image->alt_text }}" placeholder="alt text" required>
+                    <input type="number" name="existing_images[{{ $image->id }}][sort_order]" class="form-control" value="{{ $image->sort_order }}" placeholder="sort order" required>
+                    <input type="checkbox" class="btn-check" id="image-{{ $image->id }}" value="{{ $image->id }}" autocomplete="off">
+                    <label for="image-{{ $image->id }}" class="btn btn-outline-dark">Remove</label>
+                </div>
+            @endforeach
+        </div>
+        <input type="file" name="new_images[]" id="images" class="form-control mt-4" accept="image/*" multiple>
     </div>
     <div class="col-12 col-sm-6 px-5 mb-3">
         <p class="mb-3">Category</p>
         <div class="d-flex flex-wrap gap-3">
             @foreach($mainCategories as $category)
-                <input type="radio" name="category" data-name="{{ $category->name }}" class="btn-check parent-category" id="{{ $category->id }}" value="{{ $category->id }}" autocomplete="off" {{ $product->category->parent_category_id == $category->id || $product->category_id == $category->id  ? 'checked' : '' }}>
-                <label for="{{ $category->id }}" class="btn btn-outline-dark">{{ $category->name }}</label>
+                <input type="radio" name="category" data-name="{{ $category->name }}" class="btn-check parent-category" id="category-{{ $category->id }}" value="{{ $category->id }}" autocomplete="off" {{ $product->category->parent_category_id == $category->id || $product->category_id == $category->id  ? 'checked' : '' }}>
+                <label for="category-{{ $category->id }}" class="btn btn-outline-dark">{{ $category->name }}</label>
             @endforeach
         </div>
         <p class="my-3">Subcategory</p>
@@ -76,8 +88,8 @@
             <div class="subcategory-group d-none" data-parent="{{ $category->id }}">
                 <div class="d-flex flex-wrap gap-3">
                     @foreach($category->children as $child)
-                        <input type="radio" name="subCategory" class="btn-check" id="{{ $child->id }}" value="{{ $child->id }}" autocomplete="off" {{ $product->category_id == $child->id ? 'checked' : ''}}>
-                        <label for="{{ $child->id }}" class="btn btn-outline-dark">{{ $child->name}}</label>
+                        <input type="radio" name="subCategory" class="btn-check" id="category-{{ $child->id }}" value="{{ $child->id }}" autocomplete="off" {{ $product->category_id == $child->id ? 'checked' : ''}}>
+                        <label for="category-{{ $child->id }}" class="btn btn-outline-dark">{{ $child->name}}</label>
                     @endforeach
                 </div>
             </div>
@@ -85,18 +97,18 @@
         <p class="my-3">Tags</p>
         <div class="d-flex flex-wrap gap-3">
             @foreach($tags['promo'] ?? [] as $tag)
-                <input type="checkbox" class="btn-check" id="{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
-                <label for="{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
+                <input type="checkbox" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
+                <label for="tag-{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
             @endforeach
 
             @foreach($tags['audience'] ?? [] as $tag)
-                <input type="checkbox" class="btn-check" id="{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
-                <label for="{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
+                <input type="checkbox" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
+                <label for="tag-{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
             @endforeach
 
             @foreach($tags['color'] ?? [] as $tag)
-                <input type="checkbox" class="btn-check" id="{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
-                <label for="{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
+                <input type="checkbox" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
+                <label for="tag-{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
             @endforeach
         </div>
     </div>
@@ -110,14 +122,14 @@
         <p class="mb-3">Sizes</p>
         <div id="clothing-sizes" class="d-flex flex-wrap gap-3 d-none">
             @foreach($tags['clothing_size'] ?? [] as $tag)
-                <input type="checkbox" class="btn-check" id="{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
-                <label for="{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
+                <input type="checkbox" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
+                <label for="tag-{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
             @endforeach
         </div>
         <div id="shoe-sizes" class="d-flex flex-wrap gap-3 mt-3 d-none">
             @foreach($tags['shoe_size'] ?? [] as $tag)
-                <input type="checkbox" class="btn-check" id="{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
-                <label for="{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
+                <input type="checkbox" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
+                <label for="tag-{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
             @endforeach
         </div>
     </div>
@@ -126,8 +138,7 @@
         <a href="{{ route('admin.inventory') }}" class="checkout-pill">Cancel</a>
     </div>
 </div>
-</div>
-</div>
+
 
 <script src="{{ asset('js/admin_scripts.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
