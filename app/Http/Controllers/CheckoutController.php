@@ -25,7 +25,29 @@ class CheckoutController extends Controller
 
     public function storeAddress(Request $request)
     {
-        session(['checkout.address' => $request->only('first_name', 'last_name', 'country', 'postcode', 'city', 'street', 'street_number', 'email', 'phone')]);
+        $validated = $request->validate([
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'country' => ['required'],
+            'postcode' => ['required'],
+            'city' => ['required'],
+            'street' => ['required'],
+            'street_no' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required'],
+        ], [
+            'first_name.required' => 'Please enter your first name.',
+            'last_name.required' => 'Please enter your last name.',
+            'country.required' => 'Please select your country.',
+            'postcode.required' => 'Please enter your postcode.',
+            'city.required' => 'Please enter your city.',
+            'street.required' => 'Please enter your street.',
+            'street_no.required' => 'Please enter your street number.',
+            'email.required' => 'Please enter your email address.',
+            'phone.required' => 'Please enter your phone number.',
+        ]);
+
+        session(['checkout.address' => $validated]);
 
         return redirect()->route('checkout.payment');
     }
