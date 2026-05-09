@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let isInitial = true;
+    let allNewImages = [];
 
     document.querySelectorAll('.parent-category').forEach(radio => {
         radio.addEventListener('change', function () {
@@ -54,4 +55,35 @@ document.addEventListener('DOMContentLoaded', function () {
     if (checked) {
         checked.dispatchEvent(new Event('change'));
     }
+
+    document.getElementById('images').addEventListener('change', function(){
+        const container = document.getElementById('image-container');
+
+        Array.from(this.files).forEach(function(file, index){
+            const reader = new FileReader();
+            const imageIndex = allNewImages.length;
+            allNewImages.push(file);
+
+            reader.onload = function(image){
+                const div = document.createElement('div');
+                div.classList.add('image-item', 'flex-column', 'd-flex', 'gap-2', 'new-image-preview');
+                div.innerHTML = `
+                    <img src="${image.target.result}" class="img-manage">
+
+                    <input type="text" name="new_images[${imageIndex}][alt_text]" class="form-control" placeholder="alt text" required>
+                    <input type="number" name="new_images[${imageIndex}][sort_order]" class="form-control" placeholder="sort order" required>
+                    <input type="checkbox" class="btn-check" id="new_images[${imageIndex}]" value="${image.target.result}" autocomplete="off">
+                    <label for="new_images[${imageIndex}]" class="btn btn-outline-dark">Remove</label>
+                `;
+                container.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+
+        });
+        const dataTransfer = new DataTransfer();
+        allNewImages.forEach(function (imageFile){
+            dataTransfer.items.add(imageFile);
+        });
+        this.files = dataTransfer.files;
+    });
 });
