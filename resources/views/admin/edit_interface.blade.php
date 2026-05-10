@@ -40,7 +40,7 @@
         </div>
         <div class="col-12 col-sm-6 px-5 mb-3">
             <label for="productPrice" class="form-label">Product Price</label>
-            <input type="number" name="product_price" id="productPrice" class="input-box form-control" value="{{ old('productPrice', number_format($product->price)) }}" required>
+            <input type="number" name="product_price" id="productPrice" min="0" class="input-box form-control" value="{{ old('productPrice', number_format($product->price)) }}" required>
         </div>
         <div class="col-12 col-sm-6 px-5 mb-3">
             <label for="productColor" class="form-label">Product Color</label>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-12 col-sm-6 px-5 mb-3">
             <label for="productPrice" class="form-label">Discount</label>
-            <input type="number" name="product_discount" id="productDiscount" class="input-box form-control" value="{{ old('productDiscount', $product->discount_percent) }}" required>
+            <input type="number" name="product_discount" id="productDiscount" min="0" step="1" max="100" class="input-box form-control" value="{{ old('productDiscount', $product->discount_percent) }}" required>
         </div>
         <div class="col-12 px-5 mb-3">
             <label for="briefDescription" class="form-label">Brief description</label>
@@ -91,7 +91,7 @@
                 <div class="subcategory-group d-none" data-parent="{{ $category->id }}">
                     <div class="d-flex flex-wrap gap-3">
                         @foreach($category->children as $child)
-                            <input type="radio" name="sub_category" class="btn-check" id="category-{{ $child->id }}" value="{{ $child->id }}" autocomplete="off" {{ $product->category_id == $child->id ? 'checked' : ''}}>
+                            <input type="radio" name="sub_category" data-name="{{ $child->name }}" class="btn-check" id="category-{{ $child->id }}" value="{{ $child->id }}" autocomplete="off" {{ $product->category_id == $child->id ? 'checked' : ''}}>
                             <label for="category-{{ $child->id }}" class="btn btn-outline-dark">{{ $child->name}}</label>
                         @endforeach
                     </div>
@@ -100,7 +100,7 @@
             <p class="my-3">Tags</p>
             <div class="d-flex flex-wrap gap-3">
                 @foreach($tags['promo'] ?? [] as $tag)
-                    <input type="checkbox" name="tags[]" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
+                    <input type="checkbox" name="tags[]" data-name="{{ $tag->name }}" class="btn-check" id="tag-{{ $tag->id }}" value="{{ $tag->id }}" autocomplete="off" {{ $product->tags->contains($tag->id) ? 'checked' : '' }}>
                     <label for="tag-{{ $tag->id }}" class="btn btn-outline-dark">{{ $tag->name }}</label>
                 @endforeach
 

@@ -8,7 +8,6 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -122,15 +121,15 @@ class AdminController extends Controller
             $removed = $request->input('remove_new_images', []);
 
             foreach ($request->file('new_images') as $index => $file) {
-                if (in_array((string)$index, $removed)) {
+                if (in_array((string) $index, $removed)) {
                     continue;
                 }
                 $file->move(public_path('images'), $file->getClientOriginalName());
 
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'image_url'  => 'images/'.$file->getClientOriginalName(),
-                    'alt_text'   => $meta[$index]['alt_text'],
+                    'image_url' => 'images/'.$file->getClientOriginalName(),
+                    'alt_text' => $meta[$index]['alt_text'],
                     'sort_order' => $meta[$index]['sort_order'],
                 ]);
             }
@@ -139,7 +138,8 @@ class AdminController extends Controller
         return redirect()->route('admin.inventory');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $product = Product::where('id', $id)->firstOrFail();
         foreach ($product->images as $image) {
             $path = public_path($image->image_url);

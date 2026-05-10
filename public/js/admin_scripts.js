@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     let isInitial = true;
     let allNewImages = [];
+    const discountInput = document.getElementById('productDiscount');
+    const saleCheckbox = document.querySelector('.btn-check[data-name="Sale"]');
+    const priceInput = document.getElementById('productPrice');
 
     function checkImageCount() {
         const imageCount = document.querySelectorAll('.remove-button:not(:checked)').length;
@@ -43,6 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        const checkedSubcategory = document.querySelector('input[name="sub_category"]:checked');
+        const subcategoryName = checkedSubcategory ? checkedSubcategory.dataset.name : null;
+        const showClothing = categoryName === 'Clothing' || subcategoryName === 'Harnesses' || subcategoryName === 'Helmets';
+
         if (categoryName === 'Shoes') {
             if (hasKidsAudience) {
                 kidsShoeSizes.classList.remove('d-none');
@@ -51,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 adultShoeSizes.classList.remove('d-none');
             }
 
-        } else if (categoryName === 'Clothing') {
+        } else if (showClothing) {
             if (hasKidsAudience) {
                 kidsClothingSizes.classList.remove('d-none');
             }
@@ -59,6 +66,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 adultClothingSizes.classList.remove('d-none');
             }
         }
+    }
+
+    if (priceInput) {
+        priceInput.addEventListener('input', function () {
+            const value = parseFloat(this.value);
+            if (!isNaN(value)) {
+                this.value = Math.floor(value * 100) / 100;
+            }
+        });
+
+        priceInput.dispatchEvent(new Event('input'));
+    }
+
+    if (discountInput && saleCheckbox) {
+        discountInput.addEventListener('input', function() {
+            const value = parseFloat(this.value);
+
+            if (this.value === '' || value === 0) {
+                saleCheckbox.checked = false;
+                saleCheckbox.disabled = true;
+            }  else {
+                saleCheckbox.disabled = false;
+                saleCheckbox.checked = true;
+            }
+        });
+
+        saleCheckbox.addEventListener('change', function() {
+            if (!this.checked) {
+                discountInput.value = 0;
+                saleCheckbox.disabled = true;
+            }
+        });
+
+        discountInput.dispatchEvent(new Event('input'));
     }
 
     document.querySelectorAll('input[name*="sort_order"]').forEach(order => {
@@ -114,6 +155,15 @@ document.addEventListener('DOMContentLoaded', function () {
             isInitial = false;
         });
     });
+
+    document.querySelectorAll('.subcategory-group').forEach(subcategory => {
+        subcategory.addEventListener('change', function() {
+            const checkedCategory = document.querySelector('.parent-category:checked');
+            if (checkedCategory) {
+                updateSizes(checkedCategory.dataset.name);
+            }
+        });
+    })
 
     document.querySelectorAll('.audience-tag').forEach(checkbox => {
         checkbox.addEventListener('change', function () {
