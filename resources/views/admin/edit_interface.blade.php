@@ -40,7 +40,7 @@
         </div>
         <div class="col-12 col-sm-6 px-5 mb-3">
             <label for="productPrice" class="form-label">Product Price</label>
-            <input type="number" name="product_price" id="productPrice" min="0" class="input-box form-control" value="{{ old('productPrice', number_format($product->price)) }}" required>
+            <input type="number" name="product_price" id="productPrice" min="0" step="0.01" class="input-box form-control" value="{{ old('productPrice', number_format($product->price, 2)) }}" required>
         </div>
         <div class="col-12 col-sm-6 px-5 mb-3">
             <label for="productColor" class="form-label">Product Color</label>

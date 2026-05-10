@@ -68,17 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    if (priceInput) {
-        priceInput.addEventListener('input', function () {
-            const value = parseFloat(this.value);
-            if (!isNaN(value)) {
-                this.value = Math.floor(value * 100) / 100;
-            }
-        });
-
-        priceInput.dispatchEvent(new Event('input'));
-    }
-
     if (discountInput && saleCheckbox) {
         discountInput.addEventListener('input', function() {
             const value = parseFloat(this.value);
@@ -102,22 +91,21 @@ document.addEventListener('DOMContentLoaded', function () {
         discountInput.dispatchEvent(new Event('input'));
     }
 
-    document.querySelectorAll('input[name*="sort_order"]').forEach(order => {
-        order.addEventListener('input', function (){
-            const allOrders = Array.from(document.querySelectorAll('input[name*="sort_order"]')).map(function(order) {
-                    return order.value;
-                }).filter(function(value) {
-                    return value !== '';
-                });
-            const duplicates = allOrders.length !== new Set(allOrders).size;
+    document.addEventListener('input', function (event) {
+        if (!event.target.matches('input[name*="sort_order"]')) {
+            return;
+        }
 
-            if (duplicates) {
-                alert('Multiple images have the same sort order. Sort order must be unique.');
-                document.getElementById('confirm-button').disabled = true;
-            } else {
-                document.getElementById('confirm-button').disabled = false;
-            }
-        });
+        const allOrders = Array.from(document.querySelectorAll('input[name*="sort_order"]')).map(order => order.value).filter(value => value !== '');
+
+        const duplicates = allOrders.length !== new Set(allOrders).size;
+
+        if (duplicates) {
+            alert('Multiple images have the same sort order. Sort order must be unique.');
+            document.getElementById('confirm-button').disabled = true;
+        } else {
+            document.getElementById('confirm-button').disabled = false;
+        }
     });
 
     document.querySelectorAll('.parent-category').forEach(radio => {
